@@ -6,7 +6,7 @@ function Searchbar(props) {
   const [currentlySelected, setCurrentlySelected] = useState('');
   const [textSearch, setTextSearch] = useState('');
   // Context dos links ainda deve ser implementado
-  // const { setSearchAPIReponse } = useContext(SearchContext);
+  const { setSearchAPIReponse } = useContext(linksContext);
   const { fetchData } = useFetch();
 
   const redirectTo = (route) => {
