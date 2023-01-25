@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import LinkContext from '../context/linkContext/LinkContext';
 import useFetch from '../hooks/useFetch';
 
 function Searchbar(props) {
   const [currentlySelected, setCurrentlySelected] = useState('');
   const [textSearch, setTextSearch] = useState('');
   // Context dos links ainda deve ser implementado
-  const { setSearchAPIReponse } = useContext(linksContext);
+  const { setSearchAPIReponse } = useContext(LinkContext);
   const { fetchData } = useFetch();
 
   const redirectTo = (route) => {
