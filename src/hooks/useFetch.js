@@ -5,16 +5,20 @@ const useFetch = () => {
 
   const fetchData = async (URL) => {
     setIsLoading(true);
-    try {
-      const response = await fetch(URL);
-      const json = await response.json();
-      setIsLoading(false);
-      return json;
-    } catch (error) {
-      throw new Error('Algo deu errado:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    const response = await fetch(URL, {
+      mode: 'cors',
+    });
+    console.log(response);
+    const json = await response.json();
+    setIsLoading(false);
+    return json;
+    // try {
+    //   return json;
+    // } catch (error) {
+    //   throw new Error('Algo deu errado:', error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return {
