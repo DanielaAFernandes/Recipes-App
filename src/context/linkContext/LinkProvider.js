@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import LinkContext from './LinkContext';
 
 function LinkProvider({ children }) {
-  const [searchAPIResponse, setSearchAPIReponse] = useState([]);
+  const [searchAPIResponse, setSearchAPIResponse] = useState([]);
   const [hasStartedSearchingOrFiltering, setHasStartedSearchingOrFiltering] = useState();
+  const [isSearchBarToogled, setIsSearchBarToogle] = useState(true);
 
   const values = useMemo(() => ({
     searchAPIResponse,
-    setSearchAPIReponse,
+    setSearchAPIResponse,
     hasStartedSearchingOrFiltering,
     setHasStartedSearchingOrFiltering,
+    isSearchBarToogled,
+    setIsSearchBarToogle,
 
-  }), [hasStartedSearchingOrFiltering, searchAPIResponse]);
+  }), [hasStartedSearchingOrFiltering, searchAPIResponse, isSearchBarToogled]);
 
   return (
     <LinkContext.Provider value={ values }>
