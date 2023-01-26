@@ -1,17 +1,19 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import LinkContext from './LinkContext';
 
 function LinkProvider({ children }) {
-  const [links, setLinks] = useState();
-  const [searchAPIResponse, setSearchAPIReponse] = useState();
+  const [searchAPIResponse, setSearchAPIReponse] = useState([]);
+  const [hasStartedSearchingOrFiltering, setHasStartedSearchingOrFiltering] = useState();
 
   const values = useMemo(() => ({
-    links,
-    setLinks,
     searchAPIResponse,
     setSearchAPIReponse,
-  }), [links, searchAPIResponse]);
+    hasStartedSearchingOrFiltering,
+    setHasStartedSearchingOrFiltering,
+
+  }), [hasStartedSearchingOrFiltering, searchAPIResponse]);
+
   return (
     <LinkContext.Provider value={ values }>
       { children }

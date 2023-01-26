@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import LinkContext from '../context/linkContext/LinkContext';
 import useFetch from '../hooks/useFetch';
 
 function Searchbar(props) {
   const [currentlySelected, setCurrentlySelected] = useState('');
   const [textSearch, setTextSearch] = useState('');
-  // Context dos links ainda deve ser implementado
-  const { setSearchAPIReponse } = useContext(LinkContext);
-  const { fetchData } = useFetch();
+  const { getItem } = useFetch();
+  const { setSearchAPIReponse,
+    setHasStartedSearchingOrFiltering } = useContext(LinkContext);
 
   const redirectTo = (route) => {
     const { history } = props;
@@ -16,22 +16,13 @@ function Searchbar(props) {
   };
 
   const triggerSearch = async () => {
-    const { type } = props;
-    // Se a rota for drink, o nome do site é cocktail, senão é meal
-    let siteName;
-    if (!type || type === 'drink') {
-      siteName = 'cocktail';
-    } else {
-      siteName = type;
-    }
-
     // Se o radio selecionado for ingrediente ('i'), então o link é filter, senão é search
     const decideFilterOrSearch = currentlySelected === 'i' ? 'filter' : 'search';
 
     // Componente  recebe na rota se é meal or cocktail por meio da chave type
-    const URL = `https://www.the${siteName}db.com/api/json/v1/1/${decideFilterOrSearch}.php?${currentlySelected}=${textSearch}`;
+    const endpoint = `${decideFilterOrSearch}.php?${currentlySelected}=${textSearch}`;
 
-    const arrayOfLinks = await fetchData(URL);
+    const arrayOfLinks = getItem(endpoint, null, props);
 
     if (arrayOfLinks.length === 1) {
       const linkUnico = arrayOfLinks[0];
@@ -41,6 +32,7 @@ function Searchbar(props) {
     }
 
     setSearchAPIReponse(arrayOfLinks);
+    setHasStartedSearchingOrFiltering(true);
   };
 
   return (
@@ -98,7 +90,6 @@ function Searchbar(props) {
 }
 
 Searchbar.propTypes = {
-  type: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
