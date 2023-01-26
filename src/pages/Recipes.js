@@ -4,58 +4,77 @@ import useFetch from '../hooks/useFetch';
 import RecipesLink from '../components/Recipes/RecipesLink';
 import LinkContext from '../context/linkContext/LinkContext';
 import Searchbar from '../components/Searchbar';
+import CategoriesHolder from '../components/Recipes/Categories/CategoriesHolder';
 
 function Recipes(props) {
   const { isLoading, setIsLoading, getItem } = useFetch();
   const [renderingLinks, setRenderingLinks] = useState([]);
   const [whatArrayLinkToRender, setWhatArrayLinkToRender] = useState([]);
-  const { searchAPIResponse, hasStartedSearchingOrFiltering } = useContext(LinkContext);
+  const { searchAPIResponse, hasStartedSearchingOrFiltering,
+    isSearchBarToogled } = useContext(LinkContext);
 
   const getLinks = () => {
     getItem('search.php?s=', setRenderingLinks, props);
   };
 
-  const getCategories = async () => {
-    getItem('list.php?c=list', setCategories, props);
-  };
-
   useEffect(() => {
     getLinks();
-    getCategories();
   }, []);
 
   // Se começou a procurar ou clickou em alguma categoria, renderize o array desse procura
   // Senão, renderiza o array inicial (12 primeiros links)
   useEffect(() => {
     setIsLoading(true);
-    if (hasStartedSearchingOrFiltering) {
+    if (hasStartedSearchingOrFiltering || whatArrayLinkToRender === null) {
       setWhatArrayLinkToRender(searchAPIResponse);
     } else {
       setWhatArrayLinkToRender(renderingLinks);
     }
     setIsLoading(false);
-  }, [searchAPIResponse, renderingLinks]);
+  }, [searchAPIResponse, renderingLinks, hasStartedSearchingOrFiltering]);
 
   if (isLoading) return <p>Loading...</p>;
 
   const { match: { path: mealsOrDrinks } } = props;
+  const { type } = props;
+  const TWELVE_FIRST_LINKS = 12;
+
+  const decideVariables = (link) => {
+    let id;
+    let name;
+    let thumb;
+    if (type === 'drink') {
+      id = link.idDrink;
+      name = link.strDrink;
+      thumb = link.strDrinkThumb;
+    } else {
+      id = link.idMeal;
+      name = link.strMeal;
+      thumb = link.strMealThumb;
+    }
+    return { id, name, thumb };
+  };
+
   return (
     <div>
-      <p>Links</p>
-      { whatArrayLinkToRender.map((link, index) => {
-        const { strDrinkThumb, strDrink, idDrink } = link;
-        return (
-          <RecipesLink
-            key={ strDrink }
-            path={ mealsOrDrinks }
-            id={ idDrink }
-            thumb={ strDrinkThumb }
-            name={ strDrink }
-            index={ index }
-          />
-        );
-      })}
-      <Searchbar { ...props } />
+      { isSearchBarToogled && <Searchbar { ...props } />}
+      <CategoriesHolder { ...props } />
+      <div className="links">
+        <p>Links</p>
+        { whatArrayLinkToRender.slice(0, TWELVE_FIRST_LINKS).map((link, index) => {
+          const { thumb, name, id } = decideVariables(link);
+          return (
+            <RecipesLink
+              key={ name }
+              path={ mealsOrDrinks }
+              id={ id }
+              thumb={ thumb }
+              name={ name }
+              index={ index }
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

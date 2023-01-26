@@ -7,7 +7,7 @@ function Searchbar(props) {
   const [currentlySelected, setCurrentlySelected] = useState('i');
   const [textSearch, setTextSearch] = useState('');
   const { getItem } = useFetch();
-  const { setSearchAPIReponse,
+  const { setSearchAPIResponse,
     setHasStartedSearchingOrFiltering } = useContext(LinkContext);
 
   const redirectTo = (route) => {
@@ -32,6 +32,7 @@ function Searchbar(props) {
       return;
     }
 
+    setSearchAPIResponse(arrayOfLinks);
     setHasStartedSearchingOrFiltering(true);
   };
 

@@ -29,7 +29,7 @@ const useFetch = () => {
 
     // const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/search.php?s=`;
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/${endpoint}`;
-
+    console.log(URL);
     const links = await fetchData(URL);
 
     // links retorna um objeto com chave 'drinks' ou 'meals'.
