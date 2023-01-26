@@ -25,15 +25,22 @@ function App() {
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
           path="/drinks/:id"
+          exact
           render={ (props) => <RecipeDetails { ...props } type="drink" /> }
         />
         <Route
           path="/meals/:id"
+          exact
           render={ (props) => <RecipeDetails { ...props } type="meal" /> }
         />
-        <Route path="/meals" render={ (props) => <Recipes { ...props } type="meal" /> } />
+        <Route
+          path="/meals"
+          exact
+          render={ (props) => <Recipes { ...props } type="meal" /> }
+        />
         <Route
           path="/drinks"
+          exact
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
