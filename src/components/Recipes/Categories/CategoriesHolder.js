@@ -12,8 +12,7 @@ function CategoriesHolder(props) {
   const [currentlyTriggeredCategory, setCurrentlyTriggeredCategory] = useState('all');
 
   const { setSearchAPIResponse,
-    setHasStartedSearchingOrFiltering,
-    hasStartedSearchingOrFiltering } = useContext(LinkContext);
+    setHasStartedSearchingOrFiltering } = useContext(LinkContext);
   const { getItem } = useFetch();
 
   const getCategories = async () => {
