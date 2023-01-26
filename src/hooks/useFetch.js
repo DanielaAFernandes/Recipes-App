@@ -32,14 +32,12 @@ const useFetch = () => {
 
     const links = await fetchData(URL);
 
-    if (setStateCallBack) {
-      // links retorna um objeto com chave 'drinks' ou 'meals'.
-      // Pega-se aqui do pathname, que será /drinks ou /meals
-      // e removo o '/'.
-      setStateCallBack(links[mealsOrDrinks.replace('/', '')]);
-    } else {
-      return links;
-    }
+    // links retorna um objeto com chave 'drinks' ou 'meals'.
+    // Pega-se aqui do pathname, que será /drinks ou /meals
+    // e removo o '/'.
+    setStateCallBack(links[mealsOrDrinks.replace('/', '')]);
+    // Retorna o link além do setState para caso onde for usado for fazer alguma outra lógica
+    return links;
   };
 
   return {

@@ -8,7 +8,6 @@ import Searchbar from '../components/Searchbar';
 function Recipes(props) {
   const { isLoading, setIsLoading, getItem } = useFetch();
   const [renderingLinks, setRenderingLinks] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [whatArrayLinkToRender, setWhatArrayLinkToRender] = useState([]);
   const { searchAPIResponse, hasStartedSearchingOrFiltering } = useContext(LinkContext);
 
@@ -25,6 +24,8 @@ function Recipes(props) {
     getCategories();
   }, []);
 
+  // Se começou a procurar ou clickou em alguma categoria, renderize o array desse procura
+  // Senão, renderiza o array inicial (12 primeiros links)
   useEffect(() => {
     setIsLoading(true);
     if (hasStartedSearchingOrFiltering) {

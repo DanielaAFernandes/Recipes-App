@@ -4,7 +4,7 @@ import LinkContext from '../context/linkContext/LinkContext';
 import useFetch from '../hooks/useFetch';
 
 function Searchbar(props) {
-  const [currentlySelected, setCurrentlySelected] = useState('');
+  const [currentlySelected, setCurrentlySelected] = useState('i');
   const [textSearch, setTextSearch] = useState('');
   const { getItem } = useFetch();
   const { setSearchAPIReponse,
@@ -22,16 +22,16 @@ function Searchbar(props) {
     // Componente  recebe na rota se é meal or cocktail por meio da chave type
     const endpoint = `${decideFilterOrSearch}.php?${currentlySelected}=${textSearch}`;
 
-    const arrayOfLinks = getItem(endpoint, null, props);
+    const arrayOfLinks = await getItem(endpoint, setSearchAPIReponse, props);
 
     if (arrayOfLinks.length === 1) {
       const linkUnico = arrayOfLinks[0];
       // Ex de rota: /drinks/1234
       const rota = `/${type}/${linkUnico[idDrink]}`;
       redirectTo(rota);
+      return;
     }
 
-    setSearchAPIReponse(arrayOfLinks);
     setHasStartedSearchingOrFiltering(true);
   };
 
