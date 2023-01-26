@@ -5,6 +5,7 @@ import RecipesLink from '../components/Recipes/RecipesLink';
 import LinkContext from '../context/linkContext/LinkContext';
 import Searchbar from '../components/Searchbar';
 import CategoriesHolder from '../components/Recipes/Categories/CategoriesHolder';
+import Header from '../components/Header';
 
 function Recipes(props) {
   const { isLoading, setIsLoading, getItem } = useFetch();
@@ -57,6 +58,7 @@ function Recipes(props) {
 
   return (
     <div>
+      <Header title={ type === 'meal' ? 'Meals' : 'Drinks' } showIcon />
       { isSearchBarToogled && <Searchbar { ...props } />}
       <CategoriesHolder { ...props } />
       <div className="links">
