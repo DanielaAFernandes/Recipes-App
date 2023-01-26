@@ -6,7 +6,9 @@ const useFetch = () => {
   const fetchData = async (URL) => {
     setIsLoading(true);
     try {
-      const response = await fetch(URL);
+      const response = await fetch(URL, {
+        mode: 'cors',
+      });
       const json = await response.json();
       setIsLoading(false);
       return json;
