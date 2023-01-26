@@ -38,6 +38,7 @@ function CategoriesHolder(props) {
   useEffect(() => {
     getCategories();
   }, []);
+  // Force github update
 
   const SHOW_FIVE_CATEGORIES = 5;
   return (
