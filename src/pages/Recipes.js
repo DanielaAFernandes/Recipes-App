@@ -21,6 +21,8 @@ function Recipes(props) {
     getLinks();
   }, []);
 
+  // Se começou a procurar ou clickou em alguma categoria, renderize o array desse procura
+  // Senão, renderiza o array inicial (12 primeiros links)
   useEffect(() => {
     setIsLoading(true);
     if (hasStartedSearchingOrFiltering || whatArrayLinkToRender === null) {
