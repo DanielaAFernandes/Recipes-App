@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -33,9 +36,12 @@ function App() {
           path="/drinks"
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />
-        <Route path="/profile" render={ (props) => <Login { ...props } /> } />
-        <Route path="/done-recipes" render={ (props) => <Login { ...props } /> } />
-        <Route path="/favorite-recipes" render={ (props) => <Login { ...props } /> } />
+        <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
+        <Route path="/done-recipes" render={ (props) => <DoneRecipes { ...props } /> } />
+        <Route
+          path="/favorite-recipes"
+          render={ (props) => <FavoriteRecipes { ...props } /> }
+        />
 
       </div>
     </div>
