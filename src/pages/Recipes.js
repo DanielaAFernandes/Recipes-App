@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useFetch from '../hooks/useFetch';
 import RecipesLink from '../components/Recipes/RecipesLink';
 import LinkContext from '../context/linkContext/LinkContext';
-import Searchbar from '../components/Searchbar';
+import SearchBar from '../components/SearchBar';
 import CategoriesHolder from '../components/Recipes/Categories/CategoriesHolder';
 import Header from '../components/Header';
 
@@ -59,7 +59,7 @@ function Recipes(props) {
   return (
     <div>
       <Header title={ type === 'meal' ? 'Meals' : 'Drinks' } showIcon />
-      { isSearchBarToogled && <Searchbar { ...props } />}
+      { isSearchBarToogled && <SearchBar { ...props } />}
       <CategoriesHolder { ...props } />
       <div className="links">
         <p>Links</p>

@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import drinks from './mocks/drinks';
 import meals from './mocks/meals';
-import categories from './mocks/categories';
+import categoriesMeat from './mocks/categoriesMeat';
+import categoriesDrinks from './mocks/categoriesDrinks';
 import milkDrinks from './mocks/milkDrinks';
 
 describe('Tests for Searchbar.js', () => {
@@ -17,14 +19,19 @@ describe('Tests for Searchbar.js', () => {
 
         if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') { return Promise.resolve(meals); }
 
-        if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') { return Promise.resolve(categories); }
+        if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') { return Promise.resolve(categoriesMeat); }
+
+        if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list') { return Promise.resolve(categoriesDrinks); }
 
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=milk') { return Promise.resolve(milkDrinks); }
       },
     });
     const { history } = renderWithRouterAndProvider(<App />);
-    act(() => history.push('/meals'));
+    act(() => history.push('/drinks'));
     myHistory = history;
+
+    const showSearch = screen.getByTestId('search-top-btn');
+    userEvent.click(showSearch);
   });
   test('Deve haver uma barra de procura e 3 opções radio', () => {
     console.log(myHistory.location.pathname);
@@ -42,5 +49,19 @@ describe('Tests for Searchbar.js', () => {
 
     const execButton = screen.getByTestId('exec-search-btn');
     expect(execButton).toBeInTheDocument();
+  });
+  test('Deve haver os itens especificados se for procurado por drinks com leite', () => {
+    const searchInput = screen.getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+
+    const ingredientInput = screen.getByTestId('ingredient-search-radio');
+    expect(ingredientInput).toBeInTheDocument();
+
+    const execButton = screen.getByTestId('exec-search-btn');
+    expect(execButton).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'milk');
+    userEvent.click(ingredientInput);
+    userEvent.click(execButton);
   });
 });
