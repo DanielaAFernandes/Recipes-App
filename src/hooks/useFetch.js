@@ -4,13 +4,12 @@ const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async (URL) => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const response = await fetch(URL, {
         mode: 'cors',
       });
       const json = await response.json();
-      setIsLoading(false);
       return json;
     } catch (error) {
       throw new Error('Algo deu errado:', error);
@@ -22,8 +21,8 @@ const useFetch = () => {
   const getItem = async (endpoint, setStateCallBack, props) => {
     // Map props.match.path to variable mealsOrDrinks
     const { type } = props;
-    const { match: { path: mealsOrDrinks } } = props;
-
+    const { history: { location: { pathname: mealsOrDrinks } } } = props;
+    console.log(mealsOrDrinks);
     // Api a ser usada é 'thecocktailsdb' ou 'themealsdb'
     const APIToUse = type === 'drink' ? 'cocktail' : 'meal';
 
