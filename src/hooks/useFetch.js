@@ -19,8 +19,31 @@ const useFetch = () => {
     }
   };
 
+  const getItem = async (endpoint, setStateCallBack, props) => {
+    // Map props.match.path to variable mealsOrDrinks
+    const { type } = props;
+    const { match: { path: mealsOrDrinks } } = props;
+
+    // Api a ser usada é 'thecocktailsdb' ou 'themealsdb'
+    const APIToUse = type === 'drink' ? 'cocktail' : 'meal';
+
+    // const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/search.php?s=`;
+    const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/${endpoint}`;
+
+    const links = await fetchData(URL);
+
+    // links retorna um objeto com chave 'drinks' ou 'meals'.
+    // Pega-se aqui do pathname, que será /drinks ou /meals
+    // e removo o '/'.
+    setStateCallBack(links[mealsOrDrinks.replace('/', '')]);
+    // Retorna o link além do setState para caso onde for usado for fazer alguma outra lógica
+    return links;
+  };
+
   return {
+    getItem,
     fetchData,
+    setIsLoading,
     isLoading,
   };
 };

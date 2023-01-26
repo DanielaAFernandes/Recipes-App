@@ -22,7 +22,7 @@ function App() {
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
           path="/drinks/:id"
-          render={ (props) => <RecipeDetails { ...props } type="drinks" /> }
+          render={ (props) => <RecipeDetails { ...props } type="drink" /> }
         />
         <Route
           path="/meals/:id"
@@ -31,7 +31,7 @@ function App() {
         <Route path="/meals" render={ (props) => <Recipes { ...props } type="meal" /> } />
         <Route
           path="/drinks"
-          render={ (props) => <Recipes { ...props } type="drinks" /> }
+          render={ (props) => <Recipes { ...props } type="drink" /> }
         />
         <Route path="/profile" render={ (props) => <Login { ...props } /> } />
         <Route path="/done-recipes" render={ (props) => <Login { ...props } /> } />
