@@ -71,3 +71,11 @@
     transform: rotate(-10deg);
   }
 }
+
+footer {
+  background-color: lightblue;
+  height: 40px;
+  position: fixed;
+  top: 600px;
+  width: 100%;
+}
