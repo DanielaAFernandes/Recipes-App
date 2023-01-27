@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import LinkContext from '../context/linkContext/LinkContext';
 import useFetch from '../hooks/useFetch';
 
-function Searchbar(props) {
+function SearchBar(props) {
   const [currentlySelected, setCurrentlySelected] = useState('i');
   const [textSearch, setTextSearch] = useState('');
   const { getItem } = useFetch();
@@ -19,20 +19,32 @@ function Searchbar(props) {
     // Se o radio selecionado for ingrediente ('i'), então o link é filter, senão é search
     const decideFilterOrSearch = currentlySelected === 'i' ? 'filter' : 'search';
 
+    if (currentlySelected === 'f' && textSearch.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+      return;
+    }
+
     // Componente  recebe na rota se é meal or cocktail por meio da chave type
     const endpoint = `${decideFilterOrSearch}.php?${currentlySelected}=${textSearch}`;
 
-    const arrayOfLinks = await getItem(endpoint, setSearchAPIReponse, props);
+    const arrayOfLinks = await getItem(endpoint, setSearchAPIResponse, props);
+    const key = Object.keys(arrayOfLinks)[0];
 
-    if (arrayOfLinks.length === 1) {
-      const linkUnico = arrayOfLinks[0];
+    if (!arrayOfLinks[key]) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      return;
+    }
+
+    if (arrayOfLinks[key].length === 1) {
+      const { type } = props;
+      const linkUnico = arrayOfLinks[key];
+      const idKey = type === 'drink' ? 'idDrink' : 'idMeal';
       // Ex de rota: /drinks/1234
-      const rota = `/${type}/${linkUnico[idDrink]}`;
+      const rota = `/${type}s/${linkUnico[0][idKey]}`;
       redirectTo(rota);
       return;
     }
 
-    setSearchAPIResponse(arrayOfLinks);
     setHasStartedSearchingOrFiltering(true);
   };
 
@@ -90,9 +102,10 @@ function Searchbar(props) {
   );
 }
 
-Searchbar.propTypes = {
+SearchBar.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  type: PropTypes.string.isRequired,
 };
-export default Searchbar;
+export default SearchBar;

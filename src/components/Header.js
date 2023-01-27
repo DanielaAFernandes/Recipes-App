@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import LinkContext from '../context/linkContext/LinkContext';
 
 export default function Header({ title, showIcon }) {
+  const { setIsSearchBarToogle, isSearchBarToogled } = useContext(LinkContext);
   return (
     <header>
       <Link to="/profile">
@@ -16,11 +18,16 @@ export default function Header({ title, showIcon }) {
       </Link>
       {
         showIcon && (
-          <img
-            src={ searchIcon }
-            data-testid="search-top-btn"
-            alt="searchIcon"
-          />
+          <button
+            type="button"
+            onClick={ () => setIsSearchBarToogle(!isSearchBarToogled) }
+          >
+            <img
+              src={ searchIcon }
+              data-testid="search-top-btn"
+              alt="searchIcon"
+            />
+          </button>
         )
       }
       <h3 data-testid="page-title">{ title }</h3>
