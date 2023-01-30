@@ -18,7 +18,6 @@ describe('Testa os componentes da tela de login', () => {
   const testIdMail = 'email-input';
   const testIdPass = 'password-input';
   const testIdBtn = 'login-submit-btn';
-
   test('Se os elementos corretos aparecem na tela', () => {
     // Este arquivo pode ser modificado ou deletado sem problemas
     renderWithRouter(<App />);
