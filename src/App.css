@@ -73,9 +73,13 @@
 }
 
 footer {
-  background-color: lightblue;
-  height: 40px;
+  background-color: #464646;
+  border-top: 3px solid rgb(38, 38, 38);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 25px;
   position: fixed;
-  top: 600px;
-  width: 100%;
+  right: 0;
 }

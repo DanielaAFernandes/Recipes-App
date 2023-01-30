@@ -1,27 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
+  // clickHandle = (id) => {
+  //   const { history } = props;
+  //   history.push(id);
+  // };
+
   return (
     <footer data-testid="footer">
-      <Link to="/drinks">
+      <button
+        type="button"
+        // onClick={ () => clickHandle('/drinks') }
+      >
         <img
-          src={ drinkIcon }
-          alt="ícone de bebida"
           data-testid="drinks-bottom-btn"
+          src={ drinkIcon }
+          type="image/svg+xml"
+          alt="Drink Icon"
         />
-      </Link>
-      <Link to="meals">
+      </button>
+      <button
+        type="button"
+        // onClick={ () => clickHandle('/meals') }
+      >
         <img
-          src={ mealIcon }
-          alt="ícone de comida"
           data-testid="meals-bottom-btn"
+          src={ mealIcon }
+          type="image/svg+xml"
+          alt="Meal Icon"
         />
-      </Link>
+      </button>
     </footer>
   );
 }
+
+Footer.propTypes = {};
 
 export default Footer;
