@@ -18,7 +18,7 @@ const useFetch = () => {
     }
   };
 
-  const getItem = async (endpoint, setStateCallBack, props) => {
+  const getItem = async (endpoint, setStateCallBack, props, id) => {
     console.log(endpoint);
     // Map props.match.path to variable mealsOrDrinks
     const { type } = props;
@@ -29,6 +29,11 @@ const useFetch = () => {
     // const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/search.php?s=`;
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/${endpoint}`;
     const links = await fetchData(URL);
+
+    if (id) {
+      setStateCallBack(links[mealsOrDrinks.split('/')[0]]);
+      return links;
+    }
 
     // links retorna um objeto com chave 'drinks' ou 'meals'.
     // Pega-se aqui do pathname, que será /drinks ou /meals
