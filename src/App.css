@@ -71,3 +71,15 @@
     transform: rotate(-10deg);
   }
 }
+
+footer {
+  background-color: #464646;
+  border-top: 3px solid rgb(38, 38, 38);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 25px;
+  position: fixed;
+  right: 0;
+}

@@ -5,7 +5,7 @@ import LinkContext from './LinkContext';
 function LinkProvider({ children }) {
   const [searchAPIResponse, setSearchAPIResponse] = useState([]);
   const [hasStartedSearchingOrFiltering, setHasStartedSearchingOrFiltering] = useState();
-  const [isSearchBarToogled, setIsSearchBarToogle] = useState(true);
+  const [isSearchBarToogled, setIsSearchBarToogle] = useState(false);
 
   const values = useMemo(() => ({
     searchAPIResponse,
