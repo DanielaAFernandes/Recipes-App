@@ -9,6 +9,7 @@ import Recipes from './pages/Recipes';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -24,25 +25,27 @@ function App() {
       <div id="rotas">
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
-          exact
           path="/drinks/:id"
+          exact
           render={ (props) => <RecipeDetails { ...props } type="drink" /> }
         />
         <Route
-          exact
           path="/meals/:id"
+          exact
           render={ (props) => <RecipeDetails { ...props } type="meal" /> }
         />
         <Route
-          exact
           path="/meals"
+          exact
           render={ (props) => <Recipes { ...props } type="meal" /> }
         />
         <Route
-          exact
           path="/drinks"
+          exact
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />
+        <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
         <Route path="/done-recipes" render={ (props) => <DoneRecipes { ...props } /> } />
         <Route
