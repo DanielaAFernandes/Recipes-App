@@ -12,13 +12,14 @@ const useFetch = () => {
       const json = await response.json();
       return json;
     } catch (error) {
-      throw new Error('Algo deu errado:', error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const getItem = async (endpoint, setStateCallBack, props) => {
+    console.log(endpoint);
     // Map props.match.path to variable mealsOrDrinks
     const { type } = props;
     const { history: { location: { pathname: mealsOrDrinks } } } = props;
@@ -28,6 +29,7 @@ const useFetch = () => {
     // const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/search.php?s=`;
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/${endpoint}`;
     const links = await fetchData(URL);
+
     // links retorna um objeto com chave 'drinks' ou 'meals'.
     // Pega-se aqui do pathname, que será /drinks ou /meals
     // e removo o '/'
