@@ -22,7 +22,7 @@ function Searchbar(props) {
     // Componente  recebe na rota se é meal or cocktail por meio da chave type
     const endpoint = `${decideFilterOrSearch}.php?${currentlySelected}=${textSearch}`;
 
-    const arrayOfLinks = await getItem(endpoint, setSearchAPIReponse, props);
+    const arrayOfLinks = await getItem(endpoint, setSearchAPIResponse, props);
 
     if (arrayOfLinks.length === 1) {
       const linkUnico = arrayOfLinks[0];

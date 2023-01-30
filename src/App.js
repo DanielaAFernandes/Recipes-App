@@ -24,15 +24,22 @@ function App() {
       <div id="rotas">
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
+          exact
           path="/drinks/:id"
           render={ (props) => <RecipeDetails { ...props } type="drink" /> }
         />
         <Route
+          exact
           path="/meals/:id"
           render={ (props) => <RecipeDetails { ...props } type="meal" /> }
         />
-        <Route path="/meals" render={ (props) => <Recipes { ...props } type="meal" /> } />
         <Route
+          exact
+          path="/meals"
+          render={ (props) => <Recipes { ...props } type="meal" /> }
+        />
+        <Route
+          exact
           path="/drinks"
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />

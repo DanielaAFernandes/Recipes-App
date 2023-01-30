@@ -10,6 +10,7 @@ const useFetch = () => {
         mode: 'cors',
       });
       const json = await response.json();
+      console.log(json);
       setIsLoading(false);
       return json;
     } catch (error) {
@@ -19,7 +20,7 @@ const useFetch = () => {
     }
   };
 
-  const getItem = async (endpoint, setStateCallBack, props) => {
+  const getItem = async (endpoint, setStateCallBack, props, id) => {
     // Map props.match.path to variable mealsOrDrinks
     const { type } = props;
     const { match: { path: mealsOrDrinks } } = props;
@@ -35,6 +36,10 @@ const useFetch = () => {
     // links retorna um objeto com chave 'drinks' ou 'meals'.
     // Pega-se aqui do pathname, que será /drinks ou /meals
     // e removo o '/'.
+    if (id) {
+      setStateCallBack(links[mealsOrDrinks.split('/')[0]]);
+      return links;
+    }
     setStateCallBack(links[mealsOrDrinks.replace('/', '')]);
     // Retorna o link além do setState para caso onde for usado for fazer alguma outra lógica
     return links;
