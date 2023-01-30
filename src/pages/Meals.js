@@ -2,12 +2,13 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Profile() {
+function Meals() {
+  console.log('teste');
   return (
     <div>
-      <Header title="Profile" showSearch={ false } />
+      <Header title="Meals" showSearch />
       <Footer />
     </div>
   );
 }
-export default Profile;
+export default Meals;

@@ -8,8 +8,8 @@ import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import RecipeInProgress from './pages/RecipeInProgress';
 import Profile from './pages/Profile';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -44,16 +44,8 @@ function App() {
           exact
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />
-        <Route
-          path="/meals/:id"
-          exact
-          render={ (props) => <RecipeInProgress { ...props } type="RecipeInProgress" /> }
-        />
-        <Route
-          path="/drinks/:id"
-          exact
-          render={ (props) => <RecipeInProgress { ...props } type="RecipeInProgress" /> }
-        />
+        <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
         <Route path="/done-recipes" render={ (props) => <DoneRecipes { ...props } /> } />
         <Route
