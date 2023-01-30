@@ -6,6 +6,7 @@ import LinkContext from '../context/linkContext/LinkContext';
 import SearchBar from '../components/SearchBar';
 import CategoriesHolder from '../components/Recipes/Categories/CategoriesHolder';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Recipes(props) {
   const { isLoading, setIsLoading, getItem } = useFetch();
@@ -77,6 +78,7 @@ function Recipes(props) {
           );
         })}
       </div>
+      <Footer { ...props } />
     </div>
   );
 }
