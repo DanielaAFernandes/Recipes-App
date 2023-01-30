@@ -28,7 +28,6 @@ function Login() {
   }, [login]);
 
   const handleSubmit = () => {
-    // console.log("oi");
     localStorage.setItem('user', JSON.stringify({ email: login.email }));
 
     history.push('/meals');

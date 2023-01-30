@@ -3,11 +3,22 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouterAndProvider from './render/renderWithRouter';
+import fetch from '../../cypress/mocks/fetch';
 
 describe('Testa os componentes da tela de login', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(fetch);
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
+  });
+
   const testIdMail = 'email-input';
   const testIdPass = 'password-input';
   const testIdBtn = 'login-submit-btn';
+
   test('Se os elementos corretos aparecem na tela', () => {
     // Este arquivo pode ser modificado ou deletado sem problemas
     renderWithRouter(<App />);
@@ -43,7 +54,7 @@ describe('Testa os componentes da tela de login', () => {
     expect(btnRedirect).not.toBeDisabled();
   });
   test('Se redireciona para a página principal de receitas', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndProvider(<App />);
     const inputEmail = screen.getByTestId(testIdMail);
     const inputPassword = screen.getByTestId(testIdPass);
     const btnRedirect = screen.getByTestId(testIdBtn);

@@ -1375,4 +1375,4 @@ const drinks = {
   ],
 };
 
-module.exports = drinks;
+export default drinks;
