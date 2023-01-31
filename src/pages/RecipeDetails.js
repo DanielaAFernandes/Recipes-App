@@ -39,7 +39,7 @@ export default function RecipeDetails(props) {
 
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/lookup.php?i=${id}`;
     const links = await fetchData(URL);
-  
+
     // Armazena a receita no estado global, para ser utilizada pelos componentes que precisarem
     const linksFirstKey = Object.keys(links)[0];
     const arrayWithRecipeObject = links[linksFirstKey];
