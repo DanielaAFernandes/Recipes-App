@@ -2,11 +2,7 @@ import React from 'react';
 import './CopyConfirmation.style.css';
 
 function CopyConfirmation() {
-  return (
-    <div className="copy-confirmation">
-      Link copied!
-    </div>
-  );
+  return <p>Link copied!</p>;
 }
 
-export default CopyConfirmation();
+export default CopyConfirmation;
