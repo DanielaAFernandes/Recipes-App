@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
-// import RecipeDetails from '../pages/RecipeDetails';
 import App from '../App';
 
 describe.only('Testes para RecipeDetails.js', () => {

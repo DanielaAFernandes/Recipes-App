@@ -98,9 +98,9 @@ export default function RecipeDetails(props) {
   };
 
   return (
-    <div>
+    <div className="body-app">
       { isLoading ? 'carregando' : (
-        <div>
+        <div className="body-app">
           <h1
             className="recipe-title"
             data-testid="recipe-title"
