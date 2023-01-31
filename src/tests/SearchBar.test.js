@@ -120,7 +120,7 @@ describe('Tests for Searchbar.js', () => {
     const ingredientInput = screen.getByTestId('first-letter-search-radio');
     const execButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
 
-    userEvent.type(searchInput, 'Arrabiata');
+    userEvent.type(searchInput, 'Ar');
     userEvent.click(ingredientInput);
     userEvent.click(execButton);
 

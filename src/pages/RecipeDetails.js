@@ -18,7 +18,7 @@ export default function RecipeDetails(props) {
       setIsLoading(false);
       return json;
     } catch (error) {
-      throw new Error('Algo deu errado:', error);
+      console.error('Algo deu errado:', error);
     } finally {
       setIsLoading(false);
     }
