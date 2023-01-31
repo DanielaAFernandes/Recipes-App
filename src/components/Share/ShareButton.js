@@ -4,7 +4,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import CopyConfirmation from './CopyConfirmation';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
-function ShareButton() {
+function ShareButton(props) {
   const {
     setShowCopyFn,
     show,
