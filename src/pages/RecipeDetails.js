@@ -16,7 +16,6 @@ export default function RecipeDetails(props) {
     try {
       const response = await fetch(URL);
       const json = await response.json();
-      setIsLoading(false);
       return json;
     } catch (error) {
       console.error('Algo deu errado:', error);
@@ -50,7 +49,7 @@ export default function RecipeDetails(props) {
       const categoryTextMeal = links.meals[0].strCategory;
       const instructionsMeal = links.meals[0].strInstructions;
       const youtubeMeal = links.meals[0].strYoutube;
-      const pathMeals = '/meals/:id/in-progress';
+      const pathMeals = `/meals/${id}/in-progress`;
 
       const measureValues = getValues(links, 'Measure');
       const ingredientsValues = getValues(links, 'Ingredient');
@@ -75,7 +74,7 @@ export default function RecipeDetails(props) {
       let drinksIng = [];
       drinksIng = measureD.map((e, index) => `${e}${valueDrink[index]}`);
       const isItAlcoholic = links.drinks[0].strAlcoholic;
-      const pathDrinks = '/drinks/:id/in-progress';
+      const pathDrinks = `/drinks/${id}/in-progress`;
 
       setImage(imageDrink);
       setTitle(titleDrink);
@@ -85,7 +84,7 @@ export default function RecipeDetails(props) {
       setIsAlcoholic(isItAlcoholic);
       setPath(pathDrinks);
     }
-
+    setIsLoading(false);
     return links;
   };
   useEffect(() => {
@@ -122,11 +121,13 @@ export default function RecipeDetails(props) {
 
             {isAlcoholic || ''}
           </p>
-          {ingredients.map((filter, index) => (
-            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-              {filter}
-            </p>
-          ))}
+          {ingredients.map((filter, index) => {
+            console.log(index); return (
+              <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+                {filter}
+              </p>
+            );
+          })}
           <p
             className="instructions-text"
             data-testid="instructions"
