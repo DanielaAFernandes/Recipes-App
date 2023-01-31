@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Router } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import LinkProvider from '../../context/linkContext/LinkProvider';
 
@@ -8,7 +8,9 @@ const renderWithRouterAndProvider = (component) => {
   return ({
     ...render(
       <LinkProvider>
-        <Router history={ history }>{ component }</Router>
+        <BrowserRouter>
+          <Router history={ history }>{ component }</Router>
+        </BrowserRouter>
       </LinkProvider>,
     ),
     history,
