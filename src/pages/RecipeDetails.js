@@ -83,9 +83,9 @@ export default function RecipeDetails(props) {
 
   const { history } = props;
   return (
-    <div className="recipe-details">
+    <div className="body-app">
       { isLoading ? 'carregando' : (
-        <div>
+        <div className="body-app">
           <h1
             className="recipe-title"
             data-testid="recipe-title"
