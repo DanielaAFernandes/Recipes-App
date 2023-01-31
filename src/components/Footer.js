@@ -1,18 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-function Footer() {
-  // clickHandle = (id) => {
-  //   const { history } = props;
-  //   history.push(id);
-  // };
+function Footer(props) {
+  const clickHandle = (id) => {
+    const { history } = props;
+    history.push(id);
+  };
 
   return (
-    <footer data-testid="footer">
+    <footer className="footer" data-testid="footer">
       <button
         type="button"
-        // onClick={ () => clickHandle('/drinks') }
+        onClick={ () => clickHandle('/drinks') }
       >
         <img
           data-testid="drinks-bottom-btn"
@@ -23,7 +24,7 @@ function Footer() {
       </button>
       <button
         type="button"
-        // onClick={ () => clickHandle('/meals') }
+        onClick={ () => clickHandle('/meals') }
       >
         <img
           data-testid="meals-bottom-btn"
@@ -36,6 +37,10 @@ function Footer() {
   );
 }
 
-Footer.propTypes = {};
+Footer.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Footer;
