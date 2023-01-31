@@ -7,7 +7,9 @@ function Profile() {
     <div>
       <Header title="Profile" showSearch={ false } />
       <div>
-        <h3 data-testid="profile-email">Email...</h3>
+        <h4 data-testid="profile-email">
+          {JSON.parse(localStorage.getItem('user')).email}
+        </h4>
         <button data-testid="profile-done-btn">Done Recipes</button>
         <button data-testid="profile-favorite-btn">Favorite Recipes</button>
         <button data-testid="profile-logout-btn">Logout</button>
