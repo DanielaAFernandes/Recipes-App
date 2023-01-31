@@ -22,4 +22,4 @@ function FavoriteButton() {
 
 FavoriteButton.propTypes = {
 };
-export default connect(mapStateToProps)(FavoriteButton);
+export default FavoriteButton;

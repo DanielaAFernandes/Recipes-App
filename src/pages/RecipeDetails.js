@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import FavoriteButton from '../components/Favoritar/FavoriteButton';
+import ShareButton from '../components/Share/ShareButton';
 
 export default function RecipeDetails(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +78,6 @@ export default function RecipeDetails(props) {
   };
   useEffect(() => {
     getItem();
-    fetchData();
   }, []);
 
   return (
@@ -118,6 +119,10 @@ export default function RecipeDetails(props) {
           />
         </div>
       )}
+      <div className="share-and-favorite-buttons">
+        <FavoriteButton />
+        <ShareButton />
+      </div>
     </div>
   );
 }
