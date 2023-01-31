@@ -74,6 +74,7 @@ export default function RecipeDetails(props) {
 
     return links;
   };
+ 
   useEffect(() => {
     getItem();
   }, []);
