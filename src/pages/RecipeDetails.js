@@ -13,7 +13,6 @@ export default function RecipeDetails(props) {
   const [youtube, setYoutube] = useState('');
   const [showHasCopied, setShowHasCopied] = useState(false);
   const [recipeObject, setRecipeObject] = useState();
-
   const [isAlcoholic, setIsAlcoholic] = useState();
   const [path, setPath] = useState();
   const fetchData = async (URL) => {
