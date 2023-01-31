@@ -15,6 +15,9 @@ export default function RecipeDetails(props) {
   const [recipeObject, setRecipeObject] = useState();
   const [isAlcoholic, setIsAlcoholic] = useState();
   const [path, setPath] = useState();
+  const [showHasCopied, setShowHasCopied] = useState(false);
+  const [recipeObject, setRecipeObject] = useState();
+
   const fetchData = async (URL) => {
     setIsLoading(true);
     try {
@@ -163,7 +166,7 @@ export default function RecipeDetails(props) {
       <div className="share-and-favorite-buttons">
         <FavoriteButton />
         <ShareButton
-          whatToCopy={ }
+          whatToCopy={ recipeObject }
           setShowCopyFn={ setShowHasCopied }
           show={ showHasCopied }
         />
