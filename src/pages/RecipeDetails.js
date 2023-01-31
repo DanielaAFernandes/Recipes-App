@@ -10,6 +10,9 @@ export default function RecipeDetails(props) {
   const [categoryText, setCategoryText] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [youtube, setYoutube] = useState('');
+  const [showHasCopied, setShowHasCopied] = useState(false);
+  const [recipeObject, setRecipeObject] = useState();
+
   const fetchData = async (URL) => {
     setIsLoading(true);
     try {
@@ -31,6 +34,10 @@ export default function RecipeDetails(props) {
     const APIToUse = type === 'drink' ? 'cocktail' : 'meal';
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/lookup.php?i=${id}`;
     const links = await fetchData(URL);
+    // Armazena a receita no estado global, para ser utilizada pelos componentes que precisarem
+    const linksFirstKey = Object.keys(links)[0];
+    const arrayWithRecipeObject = links[linksFirstKey];
+    setRecipeObject(arrayWithRecipeObject[0]);
 
     if (APIToUse === 'meal') {
       const imageMeal = links.meals[0].strMealThumb;
@@ -121,7 +128,11 @@ export default function RecipeDetails(props) {
       )}
       <div className="share-and-favorite-buttons">
         <FavoriteButton />
-        <ShareButton />
+        <ShareButton
+          whatToCopy={ }
+          setShowCopyFn={ setShowHasCopied }
+          show={ showHasCopied }
+        />
       </div>
     </div>
   );
