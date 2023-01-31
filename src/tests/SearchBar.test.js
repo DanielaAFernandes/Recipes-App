@@ -136,8 +136,9 @@ describe('Tests for Searchbar.js', () => {
 
     userEvent.type(searchInput, 'xablau');
     userEvent.click(ingredientInput);
-
-    await act(() => userEvent.click(execButton));
+    await act(() => {
+      userEvent.click(execButton);
+    });
 
     expect(alertMock).toHaveBeenCalled();
   });
