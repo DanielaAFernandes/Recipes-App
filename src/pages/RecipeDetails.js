@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import FavoriteButton from '../components/Favoritar/FavoriteButton';
+import ShareButton from '../components/Share/ShareButton';
+import useFetch from '../hooks/useFetch';
 
 export default function RecipeDetails(props) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { fetchData, isLoading } = useFetch();
+  // Dados da receita para renderizar
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
   const [categoryText, setCategoryText] = useState('');
@@ -10,24 +14,16 @@ export default function RecipeDetails(props) {
   const [instructions, setInstructions] = useState('');
   const [youtube, setYoutube] = useState('');
   const [isAlcoholic, setIsAlcoholic] = useState();
-  const [path, setPath] = useState();
-  const fetchData = async (URL) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(URL);
-      const json = await response.json();
-      return json;
-    } catch (error) {
-      console.error('Algo deu errado:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
-  const getValues = (linksObject, key) => {
-    const firstKey = Object.keys(linksObject)[0];
-    const recipeObject = linksObject[firstKey][0];
-    const measures = Object.entries(recipeObject)
+  // Botão de copiar
+  const [showHasCopied, setShowHasCopied] = useState(false);
+  const [globalRecipeObject, setRecipeObject] = useState();
+
+  // Botão de começar a receita
+  const [path, setPath] = useState();
+
+  const getValues = (recipeObjectt, key) => {
+    const measures = Object.entries(recipeObjectt)
       .filter(([chave]) => chave.includes(key))
       .reduce((acc, curr) => {
         if (curr[1]) acc.push(curr[1]);
@@ -37,56 +33,48 @@ export default function RecipeDetails(props) {
   };
 
   const getItem = async () => {
-    const { match: { params: { id } } } = props;
+    const { match: { params: { id } }, history } = props;
     const { type } = props;
     const APIToUse = type === 'drink' ? 'cocktail' : 'meal';
+
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/lookup.php?i=${id}`;
     const links = await fetchData(URL);
 
-    if (APIToUse === 'meal') {
-      const imageMeal = links.meals[0].strMealThumb;
-      const titleMeal = links.meals[0].strMeal;
-      const categoryTextMeal = links.meals[0].strCategory;
-      const instructionsMeal = links.meals[0].strInstructions;
-      const youtubeMeal = links.meals[0].strYoutube;
-      const pathMeals = `/meals/${id}/in-progress`;
+    // Armazena a receita no estado global, para ser utilizada pelos componentes que precisarem
+    const linksFirstKey = Object.keys(links)[0];
+    const arrayWithRecipeObject = links[linksFirstKey];
+    const recipeObject = arrayWithRecipeObject[0];
+    setRecipeObject(recipeObject);
 
-      const measureValues = getValues(links, 'Measure');
-      const ingredientsValues = getValues(links, 'Ingredient');
-      let ingredientsAndMeasures = [];
-      ingredientsAndMeasures = measureValues
-        .map((e, index) => `${e}${ingredientsValues[index]}`);
-
-      setYoutube(youtubeMeal.replace('watch?v=', 'embed/'));
-      setImage(imageMeal);
-      setTitle(titleMeal);
-      setCategoryText(categoryTextMeal);
-      setIngredients(ingredientsAndMeasures);
-      setInstructions(instructionsMeal);
-      setPath(pathMeals);
-    } else {
-      const imageDrink = links.drinks[0].strDrinkThumb;
-      const titleDrink = links.drinks[0].strDrink;
-      const categoryTextDrinks = links.drinks[0].strCategory;
-      const instructionsDrinks = links.drinks[0].strInstructions;
-      const measureD = getValues(links, 'Measure');
-      const valueDrink = getValues(links, 'Ingredient');
-      let drinksIng = [];
-      drinksIng = measureD.map((e, index) => `${e}${valueDrink[index]}`);
-      const isItAlcoholic = links.drinks[0].strAlcoholic;
-      const pathDrinks = `/drinks/${id}/in-progress`;
-
-      setImage(imageDrink);
-      setTitle(titleDrink);
-      setCategoryText(categoryTextDrinks);
-      setIngredients(drinksIng);
-      setInstructions(instructionsDrinks);
-      setIsAlcoholic(isItAlcoholic);
-      setPath(pathDrinks);
+    const variableName = type === 'drink' ? 'Drink' : 'Meal';
+    if (type === 'drink') {
+      setIsAlcoholic(recipeObject.strAlcoholic);
+    } else if (type === 'meal') {
+      const youtubeRecipe = recipeObject.strYoutube;
+      setYoutube(youtubeRecipe.replace('watch?v=', 'embed/'));
     }
-    setIsLoading(false);
+
+    const imageRecipe = recipeObject[`str${variableName}Thumb`];
+    const titleRecipe = recipeObject[`str${variableName}`];
+    const categoryRecipe = recipeObject.strCategory;
+    const instructionsRecipe = recipeObject.strInstructions;
+    const pathRecipe = `${history.location.pathname}in-progress/`;
+
+    const measureValues = getValues(recipeObject, 'Measure');
+    const ingredientsValues = getValues(recipeObject, 'Ingredient');
+    const ingredientsAndMeasures = measureValues
+      .map((e, index) => `${e}${ingredientsValues[index]}`);
+
+    setImage(imageRecipe);
+    setTitle(titleRecipe);
+    setCategoryText(categoryRecipe);
+    setIngredients(ingredientsAndMeasures);
+    setInstructions(instructionsRecipe);
+    setPath(pathRecipe);
+
     return links;
   };
+
   useEffect(() => {
     getItem();
   }, []);
@@ -153,6 +141,14 @@ export default function RecipeDetails(props) {
           Start recipe
         </button>
       </div>
+      <div className="share-and-favorite-buttons">
+        <FavoriteButton />
+        <ShareButton
+          whatToCopy={ globalRecipeObject }
+          setShowCopyFn={ setShowHasCopied }
+          show={ showHasCopied }
+        />
+      </div>
     </div>
   );
 }
@@ -161,6 +157,9 @@ RecipeDetails.propTypes = {
   type: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   // index: PropTypes.number.isRequired,
   match: PropTypes.shape({
