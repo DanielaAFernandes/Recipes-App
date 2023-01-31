@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
+import './RecipeDetails.style.css';
 
 export default function RecipeDetails(props) {
   const { fetchData, isLoading } = useFetch();
@@ -14,10 +15,6 @@ export default function RecipeDetails(props) {
   const [instructions, setInstructions] = useState('');
   const [youtube, setYoutube] = useState('');
   const [isAlcoholic, setIsAlcoholic] = useState();
-
-  // Botão de copiar
-  const [showHasCopied, setShowHasCopied] = useState(false);
-  const [globalRecipeObject, setRecipeObject] = useState();
 
   // Botão de começar a receita
   const [path, setPath] = useState();
@@ -44,7 +41,6 @@ export default function RecipeDetails(props) {
     const linksFirstKey = Object.keys(links)[0];
     const arrayWithRecipeObject = links[linksFirstKey];
     const recipeObject = arrayWithRecipeObject[0];
-    setRecipeObject(recipeObject);
 
     const variableName = type === 'drink' ? 'Drink' : 'Meal';
     if (type === 'drink') {
@@ -74,7 +70,7 @@ export default function RecipeDetails(props) {
 
     return links;
   };
- 
+
   useEffect(() => {
     getItem();
   }, []);
@@ -85,8 +81,9 @@ export default function RecipeDetails(props) {
     history.push(path);
   };
 
+  const { history } = props;
   return (
-    <div>
+    <div className="recipe-details">
       { isLoading ? 'carregando' : (
         <div>
           <h1
@@ -142,9 +139,7 @@ export default function RecipeDetails(props) {
       <div className="share-and-favorite-buttons">
         <FavoriteButton />
         <ShareButton
-          whatToCopy={ globalRecipeObject }
-          setShowCopyFn={ setShowHasCopied }
-          show={ showHasCopied }
+          whatToCopy={ `http://localhost:3000${history.location.pathname}` }
         />
       </div>
     </div>

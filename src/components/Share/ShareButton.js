@@ -1,26 +1,31 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import React, { useState } from 'react';
+import copyClip from 'clipboard-copy';
+import shareIcon from '../../images/shareIcon.svg';
 import CopyConfirmation from './CopyConfirmation';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function ShareButton(props) {
-  const {
-    setShowCopyFn,
-    show,
-  } = props;
+  const [showHasCopied, setShowHasCopied] = useState(false);
+  const { whatToCopy } = props;
 
+  const TWO_SECONDS = 2000;
+
+  const handleClickToCopy = async () => {
+    copyClip(whatToCopy);
+    setShowHasCopied(true);
+    setTimeout(() => setShowHasCopied(false), TWO_SECONDS);
+  };
   return (
     <>
-      { show && <CopyConfirmation /> }
+      { showHasCopied && <CopyConfirmation /> }
       <button
-        data-testid="favorite-btn"
+        data-testid="share-btn"
         type="button"
-        onClick={ setShowCopyFn }
+        onClick={ handleClickToCopy }
       >
         <img
-          src={ whiteHeartIcon }
-          alt="favoritar"
+          src={ shareIcon }
+          alt="share"
         />
       </button>
     </>
@@ -28,8 +33,9 @@ function ShareButton(props) {
 }
 
 ShareButton.propTypes = {
-  setShowCopyFn: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
+  whatToCopy: PropTypes.shape({
+    meals: PropTypes.arrayOf({}).isRequired,
+  }).isRequired,
 };
 
 export default ShareButton;
