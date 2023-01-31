@@ -39,7 +39,7 @@ export default function RecipeDetails(props) {
 
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/lookup.php?i=${id}`;
     const links = await fetchData(URL);
-
+  
     // Armazena a receita no estado global, para ser utilizada pelos componentes que precisarem
     const linksFirstKey = Object.keys(links)[0];
     const arrayWithRecipeObject = links[linksFirstKey];
@@ -109,11 +109,13 @@ export default function RecipeDetails(props) {
 
             {isAlcoholic || ''}
           </p>
-          {ingredients.map((filter, index) => (
-            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-              {filter}
-            </p>
-          ))}
+          {ingredients.map((filter, index) => {
+            console.log(index); return (
+              <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+                {filter}
+              </p>
+            );
+          })}
           <p
             className="instructions-text"
             data-testid="instructions"
