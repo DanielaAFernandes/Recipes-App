@@ -120,7 +120,7 @@ describe('Tests for Searchbar.js', () => {
     const ingredientInput = screen.getByTestId('first-letter-search-radio');
     const execButton = screen.getByTestId(EXEC_SEARCH_BUTTON);
 
-    userEvent.type(searchInput, 'Arrabiata');
+    userEvent.type(searchInput, 'Ar');
     userEvent.click(ingredientInput);
     userEvent.click(execButton);
 
@@ -136,8 +136,9 @@ describe('Tests for Searchbar.js', () => {
 
     userEvent.type(searchInput, 'xablau');
     userEvent.click(ingredientInput);
-
-    await act(() => userEvent.click(execButton));
+    await act(() => {
+      userEvent.click(execButton);
+    });
 
     expect(alertMock).toHaveBeenCalled();
   });

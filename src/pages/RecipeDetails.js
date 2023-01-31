@@ -7,22 +7,36 @@ export default function RecipeDetails(props) {
   const [title, setTitle] = useState('');
   const [categoryText, setCategoryText] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState('');
   const [youtube, setYoutube] = useState('');
+  const [isAlcoholic, setIsAlcoholic] = useState();
+  const [path, setPath] = useState();
   const fetchData = async (URL) => {
     setIsLoading(true);
     try {
-      const response = await fetch(URL, {
-        mode: 'cors',
-      });
+      const response = await fetch(URL);
       const json = await response.json();
       setIsLoading(false);
       return json;
     } catch (error) {
-      throw new Error('Algo deu errado:', error);
+      console.error('Algo deu errado:', error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const getValues = (linksObject, key) => {
+    const firstKey = Object.keys(linksObject)[0];
+    const recipeObject = linksObject[firstKey][0];
+    const measures = Object.entries(recipeObject)
+      .filter(([chave]) => chave.includes(key))
+      .reduce((acc, curr) => {
+        if (curr[1]) acc.push(curr[1]);
+        return acc;
+      }, []);
+    return measures;
+  };
+
   const getItem = async () => {
     const { match: { params: { id } } } = props;
     const { type } = props;
@@ -34,15 +48,12 @@ export default function RecipeDetails(props) {
       const imageMeal = links.meals[0].strMealThumb;
       const titleMeal = links.meals[0].strMeal;
       const categoryTextMeal = links.meals[0].strCategory;
+      const instructionsMeal = links.meals[0].strInstructions;
       const youtubeMeal = links.meals[0].strYoutube;
-      const measuresMeal = (Object.keys(links.meals[0]))
-        .filter((recipeKeys) => recipeKeys.includes('Measure'));
-      const measureValues = measuresMeal.map((measure) => links.meals[0][measure]);
-      console.log(measureValues);
-      const ingredientsMeal = (Object.keys(links.meals[0]))
-        .filter((ingredientsKeys) => ingredientsKeys.includes('Ingredient'));
-      const ingredientsValues = ingredientsMeal
-        .map((measure) => links.meals[0][measure]);
+      const pathMeals = '/meals/:id/in-progress';
+
+      const measureValues = getValues(links, 'Measure');
+      const ingredientsValues = getValues(links, 'Ingredient');
       let ingredientsAndMeasures = [];
       ingredientsAndMeasures = measureValues
         .map((e, index) => `${e}${ingredientsValues[index]}`);
@@ -52,45 +63,53 @@ export default function RecipeDetails(props) {
       setTitle(titleMeal);
       setCategoryText(categoryTextMeal);
       setIngredients(ingredientsAndMeasures);
+      setInstructions(instructionsMeal);
+      setPath(pathMeals);
     } else {
       const imageDrink = links.drinks[0].strDrinkThumb;
       const titleDrink = links.drinks[0].strDrink;
       const categoryTextDrinks = links.drinks[0].strCategory;
-      const measuresDrink = (Object.keys(links.drinks[0]))
-        .filter((recipeKeys) => recipeKeys.includes('Measure'));
-      const measureD = measuresDrink.map((measure) => links.drinks[0][measure]);
-      const ingredientsD = (Object.keys(links.drinks[0]))
-        .filter((ingredientsKeys) => ingredientsKeys.includes('Ingredient'));
-      const valueDrink = ingredientsD
-        .map((measure) => links.drinks[0][measure]);
+      const instructionsDrinks = links.drinks[0].strInstructions;
+      const measureD = getValues(links, 'Measure');
+      const valueDrink = getValues(links, 'Ingredient');
       let drinksIng = [];
-
       drinksIng = measureD.map((e, index) => `${e}${valueDrink[index]}`);
+      const isItAlcoholic = links.drinks[0].strAlcoholic;
+      const pathDrinks = '/drinks/:id/in-progress';
+
       setImage(imageDrink);
       setTitle(titleDrink);
       setCategoryText(categoryTextDrinks);
       setIngredients(drinksIng);
+      setInstructions(instructionsDrinks);
+      setIsAlcoholic(isItAlcoholic);
+      setPath(pathDrinks);
     }
 
     return links;
   };
   useEffect(() => {
     getItem();
-    fetchData();
   }, []);
+
+  const handleSubmit = () => {
+    const { history } = props;
+    // localStorage.setItem('', JSON.stringify ({}));
+    history.push(path);
+  };
 
   return (
     <div>
       { isLoading ? 'carregando' : (
         <div>
           <h1
-            className="recipe-image"
-            data-testid="recipe-photo"
+            className="recipe-title"
+            data-testid="recipe-title"
           >
             {title}
           </h1>
           <img
-            className="recipe-title"
+            className="recipe-image"
             data-testid="recipe-photo"
             src={ image }
             alt="foto da receita"
@@ -100,14 +119,20 @@ export default function RecipeDetails(props) {
             data-testid="recipe-category"
           >
             {categoryText}
+
+            {isAlcoholic || ''}
           </p>
           {ingredients.map((filter, index) => (
-            <div data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-              <p>
-                {filter}
-              </p>
-            </div>
+            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+              {filter}
+            </p>
           ))}
+          <p
+            className="instructions-text"
+            data-testid="instructions"
+          >
+            {instructions}
+          </p>
           <iframe
             data-testid="video"
             src={ youtube }
@@ -118,12 +143,24 @@ export default function RecipeDetails(props) {
           />
         </div>
       )}
+      <div>
+        <button
+          data-testid="start-recipe-btn"
+          className="button-start"
+          onClick={ handleSubmit }
+        >
+          Start recipe
+        </button>
+      </div>
     </div>
   );
 }
 
 RecipeDetails.propTypes = {
   type: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   // index: PropTypes.number.isRequired,
   match: PropTypes.shape({
     path: PropTypes.string.isRequired,
