@@ -33,9 +33,7 @@ function ShareButton(props) {
 }
 
 ShareButton.propTypes = {
-  whatToCopy: PropTypes.shape({
-    meals: PropTypes.arrayOf({}).isRequired,
-  }).isRequired,
+  whatToCopy: PropTypes.string.isRequired,
 };
 
 export default ShareButton;
