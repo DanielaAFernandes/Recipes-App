@@ -60,8 +60,13 @@ export default function RecipeDetails(props) {
 
     const measureValues = getValues(recipeObject, 'Measure');
     const ingredientsValues = getValues(recipeObject, 'Ingredient');
-    const ingredientsAndMeasures = measureValues
-      .map((e, index) => `${e}${ingredientsValues[index]}`);
+    const definedMes = measureValues
+      .filter((elem) => elem !== (' '));
+    const definedIng = ingredientsValues
+      .filter((elem) => elem !== (' '));
+    const ingredientsAndMeasures = definedMes
+      .map((e, index) => `${e}${definedIng[index]}`);
+    console.log(ingredientsAndMeasures);
 
     setImage(imageRecipe);
     setTitle(titleRecipe);
@@ -108,13 +113,12 @@ export default function RecipeDetails(props) {
 
             {isAlcoholic || ''}
           </p>
-          {ingredients.map((filter, index) => {
-            console.log(index); return (
-              <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-                {filter}
-              </p>
-            );
-          })}
+          {ingredients.map((filter, index) => (
+            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+              {filter}
+            </p>
+          ))}
+          ;
           <p
             className="instructions-text"
             data-testid="instructions"
