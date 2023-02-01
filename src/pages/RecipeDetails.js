@@ -54,7 +54,7 @@ export default function RecipeDetails(props) {
     const titleRecipe = recipeObject[`str${variableName}`];
     const categoryRecipe = recipeObject.strCategory;
     const instructionsRecipe = recipeObject.strInstructions;
-    const pathRecipe = `${history.location.pathname}in-progress/`;
+    const pathRecipe = `${history.location.pathname}/in-progress`;
 
     const measureValues = getValues(recipeObject, 'Measure');
     const ingredientsValues = getValues(recipeObject, 'Ingredient');

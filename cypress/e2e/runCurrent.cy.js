@@ -9,6 +9,29 @@ afterEach(() => {
   });
 });
 
+describe('31 - Redirecione a pessoa usuária caso o botão \"Start Recipe\" seja clicado, a rota deve mudar para a tela de receita em progresso', () => {
+  it('Redireciona para tela de receita da comida em progresso', () => {
+    cy.visit('http://localhost:3000/meals/52771', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
+
+    cy.get('[data-testid="start-recipe-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/meals/52771/in-progress'));
+  });
+
+  it('Redireciona para tela de receita da bebida em progresso', () => {
+    cy.visit('http://localhost:3000/drinks/178319', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
+
+    cy.get('[data-testid="start-recipe-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/drinks/178319/in-progress'));
+  });
+});
 describe('32 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
   it('Verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/meals/52771', {
