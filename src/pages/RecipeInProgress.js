@@ -3,7 +3,67 @@ import useRecipeInProgress from '../hooks/useRecipeInProgress';
 
 function RecipeInProgress() {
   const [ingredients, setIngredients] = useState([]);
-  const { recipe } = useRecipeInProgress();
+  const { recipe, mealsOrDrink, id } = useRecipeInProgress();
+
+  const getLocalStorage = () => {
+    const checkedStorage = localStorage.getItem('inProgressRecipes');
+    const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : {
+      drinks: { },
+      meals: { },
+    };
+    return parsedCheckedStorage;
+  };
+
+  const handleNewLocalStorage = (parsedCheckedStorage, ingredient) => {
+    if (mealsOrDrink === 'drink') {
+      const currentId = parsedCheckedStorage.drinks[id] || [];
+      const storagedObjectDrink = {
+        drinks: {
+          ...parsedCheckedStorage.drinks,
+          [id]: [...new Set([...currentId, ingredient])],
+        },
+        meals: {
+          ...parsedCheckedStorage.meals,
+        },
+      };
+      return storagedObjectDrink;
+    }
+
+    const currentId = parsedCheckedStorage.meals[id] || [];
+    console.log(parsedCheckedStorage);
+
+    const storagedObjectMeal = {
+      drinks: {
+        ...parsedCheckedStorage.drinks,
+      },
+      meals: {
+        ...parsedCheckedStorage.meals,
+        [id]: [...new Set([...currentId, ingredient])],
+      },
+    };
+    return storagedObjectMeal;
+  };
+
+  const handleCheck = (ingredient, checked) => {
+    const copyIngredients = [...ingredients];
+    const index = copyIngredients.findIndex((ing) => ing.ingredient === ingredient);
+    copyIngredients[index].checked = !checked;
+    setIngredients(copyIngredients);
+    const parsedCheckedStorage = getLocalStorage();
+    const storagedObject = handleNewLocalStorage(parsedCheckedStorage, ingredient);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(storagedObject));
+    console.log('oi');
+  };
+
+  const findIfChecked = (ingredient) => {
+    const currentLocalStorage = getLocalStorage();
+    const key = mealsOrDrink === 'drink' ? 'drinks' : 'meals';
+    const ingredientsArray = currentLocalStorage[key][id] || [];
+    console.log(ingredientsArray);
+    console.log(ingredient);
+
+    return ingredientsArray.some((ingredi) => ingredi === ingredient);
+  };
 
   useEffect(() => {
     const getValues = () => {
@@ -24,9 +84,10 @@ function RecipeInProgress() {
           .filter((elem) => elem !== (' ') && elem !== null && elem.length > number);
 
         const ingredientsAndMeasures = definedMeasures
-          .map((e, index) => `${e}${definedIngredients[index]}`);
-
-        console.log(ingredientsAndMeasures);
+          .map((e, index) => `${e}${definedIngredients[index]}`)
+          .map((ingredient) => ({
+            ingredient, checked: findIfChecked(ingredient),
+          }));
 
         setIngredients(ingredientsAndMeasures);
       }
@@ -51,12 +112,19 @@ function RecipeInProgress() {
           <p data-testid="instructions">{recipe.strInstructions}</p>
           {ingredients.map((filter, index) => (
             <label
+              className={ filter.checked ? 'risked' : '' }
               data-testid={ `${index}-ingredient-step` }
               key={ index }
               htmlFor="step"
             >
-              {filter}
-              <input type="checkbox" value="step" name="step" />
+              {filter.ingredient}
+              <input
+                type="checkbox"
+                value="step"
+                name="step"
+                checked={ filter.checked }
+                onChange={ () => handleCheck(filter.ingredient, filter.checked) }
+              />
             </label>
           ))}
           ;
