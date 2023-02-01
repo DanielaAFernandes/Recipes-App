@@ -108,16 +108,28 @@ function FavoriteButton(props) {
   );
 }
 
-FavoriteButton.propTypes = {
-  type: PropTypes.string.isRequired,
+FavoriteButton.defaultProps = {
+  type: '',
   recipeObject: PropTypes.shape({
-    idDrink: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    strArea: PropTypes.string.isRequired,
-    strCategory: PropTypes.string.isRequired,
-    strAlcoholic: PropTypes.string.isRequired,
-    strDrink: PropTypes.string.isRequired,
-    strDrinkThumb: PropTypes.string.isRequired,
-  }).isRequired,
+    idDrink: '',
+    type: '',
+    strArea: '',
+    strCategory: '',
+    strAlcoholic: '',
+    strDrink: '',
+    strDrinkThumb: '',
+  }),
+};
+FavoriteButton.propTypes = {
+  type: PropTypes.string,
+  recipeObject: PropTypes.shape({
+    idDrink: PropTypes.string,
+    type: PropTypes.string,
+    strArea: PropTypes.string,
+    strCategory: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+  }),
 };
 export default FavoriteButton;
