@@ -6,7 +6,7 @@ function RecipeInProgress() {
   const { recipe, mealsOrDrink, id } = useRecipeInProgress();
 
   const getLocalStorage = () => {
-    const checkedStorage = localStorage.getItem('lastname');
+    const checkedStorage = localStorage.getItem('inProgressRecipes');
     const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : {
       drinks: { },
       meals: { },
@@ -30,6 +30,8 @@ function RecipeInProgress() {
     }
 
     const currentId = parsedCheckedStorage.meals[id] || [];
+    console.log(parsedCheckedStorage);
+
     const storagedObjectMeal = {
       drinks: {
         ...parsedCheckedStorage.drinks,
@@ -50,6 +52,7 @@ function RecipeInProgress() {
     const parsedCheckedStorage = getLocalStorage();
     const storagedObject = handleNewLocalStorage(parsedCheckedStorage, ingredient);
     localStorage.setItem('inProgressRecipes', JSON.stringify(storagedObject));
+    console.log('oi');
   };
 
   const findIfChecked = (ingredient) => {
@@ -57,6 +60,7 @@ function RecipeInProgress() {
     const key = mealsOrDrink === 'drink' ? 'drinks' : 'meals';
     const ingredientsArray = currentLocalStorage[key][id] || [];
     console.log(ingredientsArray);
+    console.log(ingredient)
 
     return ingredientsArray.some((ingredi) => ingredi === ingredient);
   };
@@ -82,10 +86,8 @@ function RecipeInProgress() {
         const ingredientsAndMeasures = definedMeasures
           .map((e, index) => `${e}${definedIngredients[index]}`)
           .map((ingredient) => ({
-            ingredient, checked: findIfChecked(),
+            ingredient, checked: findIfChecked(ingredient),
           }));
-
-        console.log(ingredientsAndMeasures);
 
         setIngredients(ingredientsAndMeasures);
       }
