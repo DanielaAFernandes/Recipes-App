@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
-import './RecipeDetails.style.css';
+// import './RecipeDetails.style.css';
 
 export default function RecipeDetails(props) {
   const { fetchData, isLoading } = useFetch();
@@ -54,7 +54,7 @@ export default function RecipeDetails(props) {
     const titleRecipe = recipeObject[`str${variableName}`];
     const categoryRecipe = recipeObject.strCategory;
     const instructionsRecipe = recipeObject.strInstructions;
-    const pathRecipe = `${history.location.pathname}in-progress/`;
+    const pathRecipe = `${history.location.pathname}/in-progress/`;
 
     const measureValues = getValues(recipeObject, 'Measure');
     const ingredientsValues = getValues(recipeObject, 'Ingredient');

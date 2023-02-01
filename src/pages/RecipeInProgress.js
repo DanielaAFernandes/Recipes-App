@@ -3,13 +3,15 @@ import useRecipeInProgress from '../hooks/useRecipeInProgress';
 
 function RecipeInProgress() {
   const { recipe } = useRecipeInProgress();
+  console.log(recipe);
 
   return (
-    <div>
+    <div className="inprogress">
       {recipe && (
         <>
           <img
             data-testid="recipe-photo"
+            className="image-inprogress"
             src={ recipe.strDrinkThumb || recipe.strMealThumb }
             alt="foto-receita"
           />
