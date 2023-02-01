@@ -40,7 +40,7 @@ describe.only('Testes para RecipeDetails.js', () => {
     const startRecipe = screen.getByTestId('start-recipe-btn');
 
     userEvent.click(startRecipe);
-  })
+  });
   test('se o elemento vídeo é renderizado na tela', async () => {
     const videoId = screen.getByTestId('video');
     expect(videoId).toBeInTheDocument();
