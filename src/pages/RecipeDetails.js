@@ -1,4 +1,3 @@
-import PropTypes, { element } from 'prop-types';
 import { useEffect, useState } from 'react';
 import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import ShareButton from '../components/Share/ShareButton';
