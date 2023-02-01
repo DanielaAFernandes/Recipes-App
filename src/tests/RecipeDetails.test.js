@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import userEvent from '@testing-library/user-event';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
 // import RecipeDetails from '../pages/RecipeDetails';
@@ -10,7 +11,7 @@ describe.only('Testes para RecipeDetails.js', () => {
   beforeEach(async () => {
     global.fetch = jest.fn(fetch);
     const { history } = renderWithRouterAndProvider(<App />);
-    await act(() => history.push('/meals'));
+    await act(() => history.push('/meals/52771'));
   });
   afterEach(() => {
     global.fetch.mockClear();
@@ -35,7 +36,11 @@ describe.only('Testes para RecipeDetails.js', () => {
   //     const ingId = await screen.findByTestId(`${index}-ingredient-name-and-measure`);
   //     expect(ingId).toBeInTheDocument();
   //   });
+  test('Se é possível clickar em start recipe', () => {
+    const startRecipe = screen.getByTestId('start-recipe-btn');
 
+    userEvent.click(startRecipe);
+  })
   test('se o elemento vídeo é renderizado na tela', async () => {
     const videoId = screen.getByTestId('video');
     expect(videoId).toBeInTheDocument();
