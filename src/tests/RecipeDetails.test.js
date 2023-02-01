@@ -2,7 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
-import userEvent from '@testing-library/user-event';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
 import App from '../App';
@@ -14,7 +13,6 @@ describe.only('Testes para RecipeDetails.js', () => {
     await act(() => history.push('/meals/52771'));
     const recipeId = await screen.findByTestId(`${0}-recipe-card`);
     userEvent.click(recipeId);
-
   });
   afterEach(() => {
     global.fetch.mockClear();
