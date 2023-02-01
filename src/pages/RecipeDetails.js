@@ -15,6 +15,7 @@ export default function RecipeDetails(props) {
   const [instructions, setInstructions] = useState('');
   const [youtube, setYoutube] = useState('');
   const [isAlcoholic, setIsAlcoholic] = useState();
+  const [globalRecipeObject, setGlobalRecipeObject] = useState({});
 
   // Botão de começar a receita
   const [path, setPath] = useState();
@@ -41,6 +42,7 @@ export default function RecipeDetails(props) {
     const linksFirstKey = Object.keys(links)[0];
     const arrayWithRecipeObject = links[linksFirstKey];
     const recipeObject = arrayWithRecipeObject[0];
+    setGlobalRecipeObject(recipeObject);
 
     const variableName = type === 'drink' ? 'Drink' : 'Meal';
     if (type === 'drink') {
@@ -81,7 +83,7 @@ export default function RecipeDetails(props) {
     history.push(path);
   };
 
-  const { history } = props;
+  const { history, type } = props;
   return (
     <div className="recipe-details">
       { isLoading ? 'carregando' : (
@@ -137,7 +139,10 @@ export default function RecipeDetails(props) {
         </button>
       </div>
       <div className="share-and-favorite-buttons">
-        <FavoriteButton />
+        <FavoriteButton
+          recipeObject={ globalRecipeObject }
+          type={ type }
+        />
         <ShareButton
           whatToCopy={ `http://localhost:3000${history.location.pathname}` }
         />
