@@ -80,12 +80,6 @@ export default function DoneRecipes() {
                 </p>
                 <p data-testid={ `${i}-horizontal-done-date` }>{recipe.doneDate}</p>
                 {tags}
-                {/* <button
-                type="button"
-                data-testid={ `${i}-horizontal-share-btn` }
-              >
-                <img src={ shareButton } alt="Share" />
-              </button> */}
                 <ButtonShare pathname={ path } testid={ `${i}-horizontal-share-btn` } />
               </div>
             </div>

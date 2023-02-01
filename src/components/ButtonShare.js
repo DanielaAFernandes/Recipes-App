@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ButtonShare(props) {
+function ButtonShare(props) {
   const { pathname, testid } = props;
   const [shareRecipe, setShareRecipe] = useState(false);
 
@@ -30,3 +30,5 @@ ButtonShare.propTypes = {
   pathname: string,
   testid: string,
 }.isRequired;
+
+export default ButtonShare;
