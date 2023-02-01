@@ -44,10 +44,10 @@ function RecipeInProgress() {
     return storagedObjectMeal;
   };
 
-  const handleCheck = (ingredient) => {
+  const handleCheck = (ingredient, checked) => {
     const copyIngredients = [...ingredients];
     const index = copyIngredients.findIndex((ing) => ing.ingredient === ingredient);
-    copyIngredients[index].checked = true;
+    copyIngredients[index].checked = !checked;
     setIngredients(copyIngredients);
     const parsedCheckedStorage = getLocalStorage();
     const storagedObject = handleNewLocalStorage(parsedCheckedStorage, ingredient);
@@ -60,7 +60,7 @@ function RecipeInProgress() {
     const key = mealsOrDrink === 'drink' ? 'drinks' : 'meals';
     const ingredientsArray = currentLocalStorage[key][id] || [];
     console.log(ingredientsArray);
-    console.log(ingredient)
+    console.log(ingredient);
 
     return ingredientsArray.some((ingredi) => ingredi === ingredient);
   };
@@ -112,6 +112,7 @@ function RecipeInProgress() {
           <p data-testid="instructions">{recipe.strInstructions}</p>
           {ingredients.map((filter, index) => (
             <label
+              className={ filter.checked ? 'risked' : '' }
               data-testid={ `${index}-ingredient-step` }
               key={ index }
               htmlFor="step"
@@ -122,7 +123,7 @@ function RecipeInProgress() {
                 value="step"
                 name="step"
                 checked={ filter.checked }
-                onChange={ () => handleCheck(filter.ingredient) }
+                onChange={ () => handleCheck(filter.ingredient, filter.checked) }
               />
             </label>
           ))}

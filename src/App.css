@@ -145,6 +145,10 @@
     margin-left: 10px;
   }
 
+  .risked {
+    text-decoration: line-through solid rgb(0, 0, 0);
+  }
+
   .rocksGlass {
     animation: shake 1s infinite ease;
     max-height: 7vh;
