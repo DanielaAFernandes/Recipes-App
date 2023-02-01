@@ -45,7 +45,9 @@ function App() {
           render={ (props) => <Recipes { ...props } type="drink" /> }
         />
         <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+
         <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+
         <Route path="/profile" render={ (props) => <Profile { ...props } /> } />
         <Route path="/done-recipes" render={ (props) => <DoneRecipes { ...props } /> } />
         <Route
