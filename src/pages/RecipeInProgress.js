@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useRecipeInProgress from '../hooks/useRecipeInProgress';
+import FavoriteButton from '../components/Favoritar/FavoriteButton';
+import ShareButton from '../components/Share/ShareButton';
 
 function RecipeInProgress() {
   const [ingredients, setIngredients] = useState([]);
@@ -106,8 +108,13 @@ function RecipeInProgress() {
             alt="foto-receita"
           />
           <h3 data-testid="recipe-title">{recipe.strDrink || recipe.strMeal}</h3>
-          <button data-testid="share-btn" type="button">Compartilhar</button>
-          <button data-testid="favorite-btn" type="button">Favoritar</button>
+          <FavoriteButton
+            recipeObject={ recipe }
+            type={ mealsOrDrink }
+          />
+          <ShareButton
+            whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
+          />
           <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
           <p data-testid="instructions">{recipe.strInstructions}</p>
           {ingredients.map((filter, index) => (

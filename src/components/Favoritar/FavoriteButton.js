@@ -30,7 +30,7 @@ function FavoriteButton(props) {
     const currentFavoriteRecipes = getLocalStorage();
 
     const checkIfFavorite = currentFavoriteRecipes
-      .some((localStorageRecipe) => localStorageRecipe[`id${variableName}`]
+      .some((localStorageRecipe) => localStorageRecipe.id
     === recipeObject[`id${variableName}`]);
 
     setIsFavorite(checkIfFavorite);
@@ -41,7 +41,7 @@ function FavoriteButton(props) {
   }, []);
 
   const extractInfoFromRecipeObject = () => {
-    const nationality = type === 'meal' ? recipeObject.strArea : '';
+    const nationality = type !== 'drink' ? recipeObject.strArea : '';
     const alcoholicOrNot = type === 'drink' ? recipeObject.strAlcoholic : '';
 
     const id = recipeObject[`id${variableName}`];
@@ -49,9 +49,16 @@ function FavoriteButton(props) {
     const name = recipeObject[`str${variableName}`];
     const image = recipeObject[`str${variableName}Thumb`];
 
+    let tipo;
+    if (type === 'meals') {
+      tipo = 'meal';
+    } else {
+      tipo = type;
+    }
+
     const constructedRecipeObject = {
       id,
-      type,
+      type: tipo,
       nationality,
       category,
       alcoholicOrNot,
