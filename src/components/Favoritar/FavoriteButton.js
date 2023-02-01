@@ -13,7 +13,7 @@ function FavoriteButton(props) {
   const getLocalStorage = () => {
     const currentFavoriteRecipes = localStorage
       .getItem(LOCAL_STORAGE_FAVORITE_RECIPES);
-
+    console.log(currentFavoriteRecipes)
     const parsedFavoriteRecipes = currentFavoriteRecipes
       ? JSON.parse(currentFavoriteRecipes)
       : [];
@@ -97,6 +97,7 @@ function FavoriteButton(props) {
       type="button"
       data-testid="favorite-btn"
       onClick={ handleFavorite }
+      className={ isFavorite ? 'desfavoritar' : 'favoritar' }
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
 
     >
