@@ -8,11 +8,13 @@ function RecipesLink(props) {
     <Link to={ `${path}/${id}` }>
       <div id="card" data-testid={ `${index}-recipe-card` }>
         <img
+          className="image-meals"
           src={ `${thumb}/preview` }
           data-testid={ `${index}-card-img` }
           alt="recipe thumbnail"
         />
         <h2
+          className="name-meals"
           data-testid={ `${index}-card-name` }
         >
           { name }
