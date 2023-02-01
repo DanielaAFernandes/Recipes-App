@@ -58,7 +58,7 @@ function Recipes(props) {
   };
 
   return (
-    <div>
+    <div className="meals-page">
       <Header title={ type === 'meal' ? 'Meals' : 'Drinks' } showIcon />
       { isSearchBarToogled && <SearchBar { ...props } />}
       <CategoriesHolder { ...props } />
