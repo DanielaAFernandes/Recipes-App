@@ -13,6 +13,7 @@ function FavoriteButton(props) {
   const getLocalStorage = () => {
     const currentFavoriteRecipes = localStorage
       .getItem(LOCAL_STORAGE_FAVORITE_RECIPES);
+
     const parsedFavoriteRecipes = currentFavoriteRecipes
       ? JSON.parse(currentFavoriteRecipes)
       : [];
