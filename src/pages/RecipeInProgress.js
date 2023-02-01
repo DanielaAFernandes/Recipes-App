@@ -25,6 +25,7 @@ function RecipeInProgress() {
 
         const ingredientsAndMeasures = definedMeasures
           .map((e, index) => `${e}${definedIngredients[index]}`);
+
         console.log(ingredientsAndMeasures);
 
         setIngredients(ingredientsAndMeasures);

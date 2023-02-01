@@ -21,7 +21,6 @@ const useRecipeInProgress = () => {
       setRecipe(data.drinks[0]);
     }
   };
-  fetchRecipe();
 
   useEffect(() => {
     fetchRecipe();
