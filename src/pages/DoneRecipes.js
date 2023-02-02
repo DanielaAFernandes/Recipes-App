@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import ButtonShare from '../components/ButtonShare';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 import './DoneRecipes.style.css';
 
@@ -21,21 +21,6 @@ export default function DoneRecipes() {
   useEffect(() => {
     setRecipes(getLocalStorage());
   }, []);
-
-  const tagsGenerate = (tags, index) => {
-    if (tags.length === 0) return '';
-    if (tags.length === 1) {
-      return (
-        <p data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</p>
-      );
-    }
-    return (
-      <p>
-        <span data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</span>
-        <span data-testid={ `${index}-${tags[1]}-horizontal-tag` }>{tags[1]}</span>
-      </p>
-    );
-  };
 
   return (
     <div>
@@ -105,3 +90,5 @@ export default function DoneRecipes() {
     </div>
   );
 }
+
+export default DoneRecipes;
