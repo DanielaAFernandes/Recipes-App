@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import './DoneRecipes.style.css';
-
-const copy = require('clipboard-copy');
+import ButtonShare from '../components/ButtonShare';
 
 function DoneRecipes() {
-  const [recipes, setRecipes] = useState(null);
-  const [alertCopy, setAlertCopy] = useState(null);
+  const history = useHistory();
+  const [recipes, setRecipes] = useState([]);
+  const [filter, setFilter] = useState(['meal', 'drink']);
 
   const getLocalStorage = () => {
     const doneRecipesInLocalStorage = localStorage.getItem('doneRecipes');
@@ -22,24 +21,19 @@ function DoneRecipes() {
     setRecipes(getLocalStorage());
   }, []);
 
-  const handlerClickFavorite = async (mealsOrDrink, id) => {
-    if (mealsOrDrink === 'meal') await copy(`http://localhost:3000/meals/${id}`);
-    if (mealsOrDrink === 'drink') await copy(`http://localhost:3000/drinks/${id}`);
-    setAlertCopy(true);
-  };
-
-  const handlerMeal = () => {
-    const base = JSON.parse(localStorage.getItem('doneRecipes'));
-    setRecipes(base.filter((e) => e.type === 'meal'));
-  };
-
-  const handlerDrink = () => {
-    const base = JSON.parse(localStorage.getItem('doneRecipes'));
-    setRecipes(base.filter((e) => e.type === 'drink'));
-  };
-
-  const handlerAll = () => {
-    setRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+  const tagsGenerate = (tags, index) => {
+    if (tags.length === 0) return '';
+    if (tags.length === 1) {
+      return (
+        <p data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</p>
+      );
+    }
+    return (
+      <p>
+        <span data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</span>
+        <span data-testid={ `${index}-${tags[1]}-horizontal-tag` }>{tags[1]}</span>
+      </p>
+    );
   };
 
   return (

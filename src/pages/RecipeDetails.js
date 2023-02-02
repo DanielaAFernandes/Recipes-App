@@ -125,9 +125,6 @@ export default function RecipeDetails(props) {
     history.push(path);
   };
 
-  const { history } = props;
-  const { match: { params: { id } } } = props;
-
   return (
     <div className="body-app">
       { isLoading ? 'carregando' : (
