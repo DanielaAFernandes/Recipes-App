@@ -164,3 +164,8 @@
     max-height: 7vh;
   }
 }
+
+.favorite-btn-detail, .favorite-btn-prog {
+  background-color: transparent;
+  border: none;
+}
