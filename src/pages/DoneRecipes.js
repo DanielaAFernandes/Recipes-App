@@ -2,15 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ButtonShare from '../components/ButtonShare';
 import Header from '../components/Header';
+import './DoneRecipes.style.css';
 
 export default function DoneRecipes() {
   const history = useHistory();
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState(['meal', 'drink']);
 
+  const getLocalStorage = () => {
+    const doneRecipesInLocalStorage = localStorage.getItem('doneRecipes');
+    const doneRecipes = doneRecipesInLocalStorage
+      ? JSON.parse(doneRecipesInLocalStorage)
+      : [];
+    return doneRecipes;
+  };
+
   useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    setRecipes(!doneRecipes ? [] : doneRecipes);
+    setRecipes(getLocalStorage());
   }, []);
 
   const tagsGenerate = (tags, index) => {
@@ -31,7 +39,6 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" showSearchIcon={ false } />
-      <p>Done Recipes</p>
       <div>
         <button
           data-testid="filter-by-meal-btn"
@@ -56,6 +63,8 @@ export default function DoneRecipes() {
         </button>
       </div>
       <div className="recipes-container">
+        {console.log(recipes)}
+
         {recipes.filter((recipe) => filter.includes(recipe.type)).map((recipe, i) => {
           const tags = tagsGenerate(recipe.tags, i);
           const topText = `${recipe.nationality} - ${recipe.category}`;
