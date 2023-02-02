@@ -79,6 +79,16 @@
     right: 0;
   }
 
+  .footer button {
+    height: 20px;
+    width: 20px;
+  }
+
+  .footer img {
+    height: 20px;
+    width: 20px;
+  }
+
   .image-inprogress {
     height: 50px;
     width: 30px;
@@ -143,6 +153,10 @@
   .recipes-link {
     height: 200px;
     margin-left: 10px;
+  }
+
+  .risked {
+    text-decoration: line-through solid black;
   }
 
   .rocksGlass {
