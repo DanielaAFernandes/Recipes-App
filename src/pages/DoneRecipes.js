@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import './DoneRecipes.style.css';
+import ButtonShare from '../components/ButtonShare';
 
-export default function DoneRecipes() {
+function DoneRecipes() {
   const history = useHistory();
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState(['meal', 'drink']);
