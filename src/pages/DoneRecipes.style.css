@@ -1,4 +1,4 @@
-#root {
+.root {
   border: solid black 3px;
   height: 100vh;
   overflow: auto;
