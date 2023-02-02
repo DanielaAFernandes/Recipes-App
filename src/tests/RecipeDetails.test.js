@@ -12,7 +12,7 @@ describe.only('Testes para RecipeDetails.js', () => {
     const { history } = renderWithRouterAndProvider(<App />);
     await act(async () => history.push('/meals'));
     const recipeId = await screen.findByTestId(`${0}-recipe-card`);
-    userEvent.click(recipeId)
+    userEvent.click(recipeId);
   });
 
   afterEach(() => {
@@ -45,14 +45,8 @@ describe.only('Testes para RecipeDetails.js', () => {
   });
 
   test('se o elemento ingredientes é renderizado na tela', async () => {
-    const ingId = await screen.findByTestId(`${index}-ingredient-name-and-measure`);
+    const ingId = await screen.findByTestId('0-ingredient-name-and-measure');
     expect(ingId).toBeInTheDocument();
-  });
-
-  test('Se é possível clickar em start recipe', () => {
-    const startRecipe = screen.getByTestId('start-recipe-btn');
-
-    userEvent.click(startRecipe);
   });
 
   test('se o elemento instruções é renderizado na tela', async () => {

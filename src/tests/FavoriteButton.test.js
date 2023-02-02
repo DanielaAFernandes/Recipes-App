@@ -13,6 +13,7 @@ describe('Tests for Favoritebutton.js', () => {
   beforeEach(async () => {
     mockedStorage = {
       favoriteRecipes: JSON.stringify([{ id: '178319' }, { id: '52771' }]),
+      doneRecipes: JSON.stringify([{ id: '52771' }]),
     };
 
     Object.defineProperty(window, 'localStorage', {

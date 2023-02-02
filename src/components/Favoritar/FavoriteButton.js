@@ -31,14 +31,14 @@ function FavoriteButton(props) {
 
     const checkIfFavorite = currentFavoriteRecipes
       .some((localStorageRecipe) => localStorageRecipe.id
-    === recipeObject[`id${variableName}`]);
+          === recipeObject[`id${variableName}`]);
 
     setIsFavorite(checkIfFavorite);
   };
 
   useEffect(() => {
     checkIfIsFavorite();
-  }, []);
+  }, [recipeObject]);
 
   const extractInfoFromRecipeObject = () => {
     const nationality = type !== 'drink' ? recipeObject.strArea : '';
