@@ -28,6 +28,9 @@ const useRecipeInProgress = () => {
 
   return {
     recipe,
+    mealsOrDrink,
+    id,
+    pathname,
   };
 };
 

@@ -8,25 +8,6 @@
   position: fixed;
 }
 
-footer {
-  background-color: #464646;
-  border-top: 3px solid rgb(38, 38, 38);
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  justify-content: center;
-  left: 0;
-  padding: 25px;
-  position: fixed;
-  right: 0;
-}
-
-.links {
-  height: 300px;
-  overflow-y: scroll;
-}
-
 /*
 #iceLeft {
   animation: clink .8s infinite ease;
@@ -71,9 +52,7 @@ footer {
   }
 }
 
-@media screen and (
-  max-width : 640px ) {
-
+@media screen and ( max-width : 640px ) {
   body {
     background-color: #0fa36b;
   }
@@ -82,6 +61,51 @@ footer {
     background-color: #0fa36b;
     height: 150px;
     margin-left: 10px;
+  }
+
+  .footer {
+    background-color: #464646;
+    border-top: 3px solid rgb(38, 38, 38);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    justify-content: center;
+    left: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: fixed;
+    right: 0;
+  }
+
+  .footer button {
+    height: 20px;
+    width: 20px;
+  }
+
+  .footer img {
+    height: 20px;
+    width: 20px;
+  }
+
+  .image-inprogress {
+    height: 50px;
+    width: 30px;
+  }
+
+  .image-meals {
+    height: 150px;
+    width: 150px;
+  }
+
+  .inprogress {
+    height: 150px;
+    margin-left: 10px;
+  }
+
+  .links {
+    height: 400px;
+    overflow-y: scroll;
   }
 
   .logo {
@@ -110,13 +134,37 @@ footer {
     font-weight: 900;
   }
 
+  .meals-page {
+    height: 150px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  .name-meals {
+    font-size: 17px;
+  }
+
   .recipe-image {
     height: 50px;
     width: 50px;
+  }
+
+  .recipes-link {
+    height: 200px;
+    margin-left: 10px;
+  }
+
+  .risked {
+    text-decoration: line-through solid black;
   }
 
   .rocksGlass {
     animation: shake 1s infinite ease;
     max-height: 7vh;
   }
+}
+
+.favorite-btn-detail, .favorite-btn-prog {
+  background-color: transparent;
+  border: none;
 }

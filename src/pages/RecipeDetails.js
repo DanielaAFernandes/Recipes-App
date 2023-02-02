@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import Recommendations from '../components/Recipes/Recomendations';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
-import './RecipeDetails.style.css';
+// import './RecipeDetails.style.css';
 
 export default function RecipeDetails(props) {
   const { fetchData, isLoading } = useFetch();
@@ -16,9 +17,49 @@ export default function RecipeDetails(props) {
   const [instructions, setInstructions] = useState('');
   const [youtube, setYoutube] = useState('');
   const [isAlcoholic, setIsAlcoholic] = useState();
+  const [globalRecipeObject, setGlobalRecipeObject] = useState({});
+  // Se a receita está em progresso, finalizada ou não
+  const [recipeState, setRecipeState] = useState('');
+  const { id } = useParams();
 
   // Botão de começar a receita
   const [path, setPath] = useState();
+
+  const { history, type } = props;
+
+  const getLocalStorage = (key) => {
+    const checkedStorage = localStorage.getItem(key);
+    const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : [];
+    return parsedCheckedStorage;
+  };
+
+  const getInProgressRecipesLocalStorage = () => {
+    const checkedStorage = localStorage.getItem('inProgressRecipes');
+    const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : {
+      drinks: { },
+      meals: { },
+    };
+    return parsedCheckedStorage;
+  };
+
+  const decideRecipeState = () => {
+    const currentDoneRecipesLocalStorage = getLocalStorage('doneRecipes');
+    const currentInProgressRecipesLocalStorage = getInProgressRecipesLocalStorage();
+
+    const isRecipeDone = currentDoneRecipesLocalStorage
+      .find((recipe) => recipe.id === id);
+
+    const firstKey = type === 'drink' ? 'drinks' : 'meals';
+    const objectWithIdKeys = currentInProgressRecipesLocalStorage[firstKey];
+
+    const idArray = Object.keys(objectWithIdKeys);
+
+    const isRecipeInProgress = idArray
+      .find((idKey) => idKey === id);
+
+    if (isRecipeDone) setRecipeState('done');
+    if (isRecipeInProgress) setRecipeState('inProgress');
+  };
 
   const getValues = (recipeObjectt, key) => {
     const measures = Object.entries(recipeObjectt)
@@ -31,8 +72,6 @@ export default function RecipeDetails(props) {
   };
 
   const getItem = async () => {
-    const { match: { params: { id } }, history } = props;
-    const { type } = props;
     const APIToUse = type === 'drink' ? 'cocktail' : 'meal';
 
     const URL = `https://www.the${APIToUse}db.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -42,6 +81,7 @@ export default function RecipeDetails(props) {
     const linksFirstKey = Object.keys(links)[0];
     const arrayWithRecipeObject = links[linksFirstKey];
     const recipeObject = arrayWithRecipeObject[0];
+    setGlobalRecipeObject(recipeObject);
 
     const variableName = type === 'drink' ? 'Drink' : 'Meal';
     if (type === 'drink') {
@@ -55,12 +95,16 @@ export default function RecipeDetails(props) {
     const titleRecipe = recipeObject[`str${variableName}`];
     const categoryRecipe = recipeObject.strCategory;
     const instructionsRecipe = recipeObject.strInstructions;
-    const pathRecipe = `${history.location.pathname}in-progress/`;
+    const pathRecipe = `${history.location.pathname}/in-progress`;
 
     const measureValues = getValues(recipeObject, 'Measure');
     const ingredientsValues = getValues(recipeObject, 'Ingredient');
-    const ingredientsAndMeasures = measureValues
-      .map((e, index) => `${e}${ingredientsValues[index]}`);
+    const definedMes = measureValues
+      .filter((elem) => elem !== (' '));
+    const definedIng = ingredientsValues
+      .filter((elem) => elem !== (' '));
+    const ingredientsAndMeasures = definedMes
+      .map((e, index) => `${e}${definedIng[index]}`);
 
     setImage(imageRecipe);
     setTitle(titleRecipe);
@@ -74,17 +118,15 @@ export default function RecipeDetails(props) {
 
   useEffect(() => {
     getItem();
+    decideRecipeState();
   }, []);
 
   const handleSubmit = () => {
-    const { history } = props;
-    // localStorage.setItem('', JSON.stringify ({}));
     history.push(path);
   };
 
   const { history } = props;
   const { match: { params: { id } } } = props;
-  console.log(id);
 
   return (
     <div className="body-app">
@@ -110,13 +152,12 @@ export default function RecipeDetails(props) {
 
             {isAlcoholic || ''}
           </p>
-          {ingredients.map((filter, index) => {
-            console.log(index); return (
-              <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-                {filter}
-              </p>
-            );
-          })}
+          {ingredients.map((filter, index) => (
+            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+              {filter}
+            </p>
+          ))}
+          ;
           <p
             className="instructions-text"
             data-testid="instructions"
@@ -140,11 +181,15 @@ export default function RecipeDetails(props) {
           className="button-start"
           onClick={ handleSubmit }
         >
-          Start recipe
+          { recipeState !== 'done'
+            && (recipeState === 'inProgress' ? 'Continue Recipe' : 'Start Recipe')}
         </button>
       </div>
       <div className="share-and-favorite-buttons">
-        <FavoriteButton />
+        <FavoriteButton
+          recipeObject={ globalRecipeObject }
+          type={ type }
+        />
         <ShareButton
           whatToCopy={ `http://localhost:3000${history.location.pathname}` }
         />

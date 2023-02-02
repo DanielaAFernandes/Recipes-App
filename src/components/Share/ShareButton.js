@@ -8,12 +8,12 @@ function ShareButton(props) {
   const [showHasCopied, setShowHasCopied] = useState(false);
   const { whatToCopy } = props;
 
-  const TWO_SECONDS = 2000;
+  const ONE_SECOND = 1000;
 
   const handleClickToCopy = async () => {
     copyClip(whatToCopy);
     setShowHasCopied(true);
-    setTimeout(() => setShowHasCopied(false), TWO_SECONDS);
+    setTimeout(() => setShowHasCopied(false), ONE_SECOND);
   };
   return (
     <>
@@ -33,9 +33,7 @@ function ShareButton(props) {
 }
 
 ShareButton.propTypes = {
-  whatToCopy: PropTypes.shape({
-    meals: PropTypes.arrayOf({}).isRequired,
-  }).isRequired,
+  whatToCopy: PropTypes.string.isRequired,
 };
 
 export default ShareButton;
