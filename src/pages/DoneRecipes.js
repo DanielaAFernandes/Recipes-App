@@ -8,7 +8,6 @@ function DoneRecipes() {
   const history = useHistory();
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState(['meal', 'drink']);
-  // a
 
   const getLocalStorage = () => {
     const doneRecipesInLocalStorage = localStorage.getItem('doneRecipes');
@@ -21,6 +20,21 @@ function DoneRecipes() {
   useEffect(() => {
     setRecipes(getLocalStorage());
   }, []);
+
+  const tagsGenerate = (tags, index) => {
+    if (tags.length === 0) return '';
+    if (tags.length === 1) {
+      return (
+        <p data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</p>
+      );
+    }
+    return (
+      <p>
+        <span data-testid={ `${index}-${tags[0]}-horizontal-tag` }>{tags[0]}</span>
+        <span data-testid={ `${index}-${tags[1]}-horizontal-tag` }>{tags[1]}</span>
+      </p>
+    );
+  };
 
   return (
     <div>
