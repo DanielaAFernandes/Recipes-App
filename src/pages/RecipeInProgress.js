@@ -57,7 +57,6 @@ function RecipeInProgress(props) {
     const parsedCheckedStorage = getLocalStorage();
     const storagedObject = handleNewLocalStorage(parsedCheckedStorage, ingredient);
     localStorage.setItem('inProgressRecipes', JSON.stringify(storagedObject));
-    console.log('oi');
   };
 
   const findIfChecked = (ingredient) => {

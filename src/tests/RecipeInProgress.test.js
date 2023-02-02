@@ -8,6 +8,11 @@ import fetch from '../../cypress/mocks/fetch';
 
 describe.only('Testes para RecipeInProgress.js', () => {
   beforeEach(async () => {
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: () => {},
+      },
+    });
     global.fetch = jest.fn(fetch);
     const { history } = renderWithRouterAndProvider(<App />);
     // await act(async () => history.push('/meals'));
@@ -53,5 +58,6 @@ describe.only('Testes para RecipeInProgress.js', () => {
   test('se o elemento ingredientes é renderizado na tela', async () => {
     const ingId = await screen.findByTestId(`${0}-ingredient-step`);
     expect(ingId).toBeInTheDocument();
+    userEvent.click(ingId.children[0]);
   });
 });
