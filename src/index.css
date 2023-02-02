@@ -19,3 +19,30 @@ footer {
   position: fixed;
   width: 100%;
 }
+
+.container {
+   position: relative;
+   padding: 0px;
+   margin-bottom: 10px;
+   max-width: 70vw; 
+
+
+}
+  .container .gallery {
+    display: flex;
+   scroll-behavior: smooth;
+   overflow-x: auto;
+   max-width: 160px;
+
+
+  }
+  .container .gallery .gallery-wraper {
+    
+  }
+
+.imageRec {
+   max-width: 80px; 
+  max-height: 80px;
+  
+}
+
