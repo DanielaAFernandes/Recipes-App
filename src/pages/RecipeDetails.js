@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FavoriteButton from '../components/Favoritar/FavoriteButton';
+import Recommendations from '../components/Recipes/Recomendations';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
 // import './RecipeDetails.style.css';
@@ -124,6 +125,9 @@ export default function RecipeDetails(props) {
     history.push(path);
   };
 
+  const { history } = props;
+  const { match: { params: { id } } } = props;
+
   return (
     <div className="body-app">
       { isLoading ? 'carregando' : (
@@ -170,6 +174,7 @@ export default function RecipeDetails(props) {
           />
         </div>
       )}
+      <div><Recommendations id={ id } /></div>
       <div>
         <button
           data-testid="start-recipe-btn"
