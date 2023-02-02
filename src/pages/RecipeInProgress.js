@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import FavoriteButton from '../components/Favoritar/FavoriteButton';
+import ShareButton from '../components/Share/ShareButton';
 import useRecipeInProgress from '../hooks/useRecipeInProgress';
 
-function RecipeInProgress() {
+function RecipeInProgress(props) {
   const [ingredients, setIngredients] = useState([]);
-  const { recipe, mealsOrDrink, id } = useRecipeInProgress();
+  const { history, type } = props;
+  const { recipe, mealsOrDrink, id, pathname } = useRecipeInProgress();
+  const LOCAL_STORAGE_DONE_RECIPES = 'doneRecipes';
 
   const getLocalStorage = () => {
     const checkedStorage = localStorage.getItem('inProgressRecipes');
@@ -65,6 +70,9 @@ function RecipeInProgress() {
     return ingredientsArray.some((ingredi) => ingredi === ingredient);
   };
 
+  const isAllChecked = () => ingredients
+    .every((ingredient) => ingredient.checked === true);
+
   useEffect(() => {
     const getValues = () => {
       if (recipe) {
@@ -95,6 +103,58 @@ function RecipeInProgress() {
     getValues();
   }, [recipe]);
 
+  const getDoneRecipesLocalStorage = () => {
+    const checkedStorage = localStorage.getItem('doneRecipes');
+    const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : [];
+    return parsedCheckedStorage;
+  };
+
+  const extractInfoFromRecipeObject = () => {
+    const variableName = type === 'drink' ? 'Drink' : 'Meal';
+    const nationality = type !== 'drink' ? recipe.strArea : '';
+    const alcoholicOrNot = type === 'drink' ? recipe.strAlcoholic : '';
+
+    const idRecipe = recipe[`id${variableName}`];
+    const category = recipe.strCategory;
+    const name = recipe[`str${variableName}`];
+    const image = recipe[`str${variableName}Thumb`];
+
+    let tipo;
+    if (type === 'meals') {
+      tipo = 'meal';
+    } else {
+      tipo = type;
+    }
+
+    const constructedRecipeObject = {
+      id: idRecipe,
+      type: tipo,
+      nationality,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      doneDate: (new Date()).toISOString(),
+      tags: recipe.strTags ? recipe.strTags.split(',') : [],
+    };
+
+    return constructedRecipeObject;
+  };
+
+  const setLocalStorage = (recipeObjectArray) => {
+    const stringifiedArray = JSON.stringify(recipeObjectArray);
+
+    localStorage.setItem(LOCAL_STORAGE_DONE_RECIPES, stringifiedArray);
+  };
+
+  const finishRecipe = () => {
+    const currentDoneRecipes = getDoneRecipesLocalStorage();
+    const constructedRecipeObject = extractInfoFromRecipeObject();
+    const newDoneRecipes = [...currentDoneRecipes, constructedRecipeObject];
+    setLocalStorage(newDoneRecipes);
+    history.push('/done-recipes');
+  };
+
   return (
     <div className="inprogress">
       {recipe && (
@@ -106,8 +166,13 @@ function RecipeInProgress() {
             alt="foto-receita"
           />
           <h3 data-testid="recipe-title">{recipe.strDrink || recipe.strMeal}</h3>
-          <button data-testid="share-btn" type="button">Compartilhar</button>
-          <button data-testid="favorite-btn" type="button">Favoritar</button>
+          <FavoriteButton
+            recipeObject={ recipe }
+            type={ mealsOrDrink }
+          />
+          <ShareButton
+            whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
+          />
           <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
           <p data-testid="instructions">{recipe.strInstructions}</p>
           {ingredients.map((filter, index) => (
@@ -128,11 +193,29 @@ function RecipeInProgress() {
             </label>
           ))}
           ;
-          <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            onClick={ finishRecipe }
+            disabled={ !isAllChecked() }
+          >
+            Finalizar
+          </button>
         </>
       )}
     </div>
   );
 }
+
+RecipeInProgress.defaultProps = {
+  type: '',
+};
+
+RecipeInProgress.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  type: PropTypes.string,
+};
 
 export default RecipeInProgress;
