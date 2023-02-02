@@ -34,14 +34,19 @@ describe.only('Testes para RecipeDetails.js', () => {
     expect(categoryId).toBeInTheDocument();
   });
 
+  test('se o elemento categoria é renderizado na tela', async () => {
+    const categoryId = await screen.findByTestId('recipe-category');
+    expect(categoryId).toBeInTheDocument();
+  });
+
+  test('Se é possível clickar em start recipe', () => {
+    const startRecipe = screen.getByTestId('start-recipe-btn');
+    userEvent.click(startRecipe);
+  });
+
   test('se o elemento instruções é renderizado na tela', async () => {
     const instructionsId = await screen.findByTestId('instructions');
     expect(instructionsId).toBeInTheDocument();
-  });
-
-  test('se o elemento ingredientes é renderizado na tela', async () => {
-    const ingId = await screen.findByTestId(`${index}-ingredient-name-and-measure`);
-    expect(ingId).toBeInTheDocument();
   });
 
   test('se o elemento ingredientes é renderizado na tela', async () => {
