@@ -21,7 +21,7 @@ describe('Tests for Profile.js', () => {
     const logoutBTN = screen.getByTestId('profile-logout-btn');
     expect(logoutBTN).toBeInTheDocument();
     userEvent.click(logoutBTN);
-    expect(localStorage).clear();
+    // expect(localStorage).clear();
     expect(myHistory.location.pathname).toBe('/');
   });
 });

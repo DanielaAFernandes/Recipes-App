@@ -2,20 +2,21 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
+import App from '../App';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
-import App from '../App';
 
-describe.only('Testes para RecipeDetails.js', () => {
+describe.only('Testes para RecipeInProgress.js', () => {
   beforeEach(async () => {
     global.fetch = jest.fn(fetch);
     const { history } = renderWithRouterAndProvider(<App />);
-    await act(async () => history.push('/meals'));
-    const recipeId = await screen.findByTestId(`${0}-recipe-card`);
-    userEvent.click(recipeId);
+    // await act(async () => history.push('/meals'));
+    await act(async () => history.push('/meals/52771'));
+    const startRecipe = screen.getByTestId('start-recipe-btn');
+    userEvent.click(startRecipe);
   });
   afterEach(() => {
-    global.fetch.mockClear();
+    jest.clearAllMocks();
   });
   test('se o elemento foto é renderizado na tela', async () => {
     const photoId = await screen.findByTestId('recipe-photo');
@@ -37,18 +38,20 @@ describe.only('Testes para RecipeDetails.js', () => {
     expect(instructionsId).toBeInTheDocument();
   });
 
-  // test('se o elemento ingredientes é renderizado na tela', async () => {
-  //   const ingId = await screen.findByTestId(`${index}-ingredient-name-and-measure`);
-  //   expect(ingId).toBeInTheDocument();
-  // });
-
-  test('Se é possível clickar em start recipe', () => {
-    const startRecipe = screen.getByTestId('start-recipe-btn');
-    userEvent.click(startRecipe);
+  test('se o botão de compartilhar é renderizado na tela', async () => {
+    const shareButton = await screen.findByTestId('share-btn');
+    expect(shareButton).toBeInTheDocument();
+    userEvent.click(shareButton);
   });
 
-  test('se o elemento vídeo é renderizado na tela', async () => {
-    const videoId = await screen.findByTestId('video');
-    expect(videoId).toBeInTheDocument();
+  test('se o botão de favoritar é renderizado na tela', async () => {
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    expect(favoriteButton).toBeInTheDocument();
+    userEvent.click(favoriteButton);
+  });
+
+  test('se o elemento ingredientes é renderizado na tela', async () => {
+    const ingId = await screen.findByTestId(`${0}-ingredient-step`);
+    expect(ingId).toBeInTheDocument();
   });
 });
