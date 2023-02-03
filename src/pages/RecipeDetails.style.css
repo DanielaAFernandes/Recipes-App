@@ -1,10 +1,15 @@
 .root {
   border: solid black 3px;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
 }
 
 .meals {
+  height: 100%;
+  overflow: auto;
+}
+
+.rotas {
   height: 100%;
   overflow: auto;
 }

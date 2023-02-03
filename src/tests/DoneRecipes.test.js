@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import renderWithRouterAndProvider from './render/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
 import DoneRecipes from '../pages/DoneRecipes';
+import App from '../App';
 
 const teste = [
   {
@@ -54,6 +55,7 @@ describe('Tests for DoneRecipes.js', () => {
         writeText: () => {},
       },
     });
+
     // Mocking local storage
     mockedStorage = {
       favoriteRecipes: JSON.stringify([{ id: '178319' }, { id: '52771' }]),
@@ -72,7 +74,8 @@ describe('Tests for DoneRecipes.js', () => {
     // Mocking fetch
     global.fetch = jest.fn(fetch);
 
-    renderWithRouterAndProvider(<DoneRecipes />);
+    const { history } = renderWithRouterAndProvider(<App />);
+    await act(() => history.push('/done-recipes'));
   });
   test('There is two tags, pasta and curry', async () => {
     jest.setTimeout(60000);

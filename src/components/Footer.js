@@ -37,10 +37,16 @@ function Footer(props) {
   );
 }
 
+Footer.defaultProps = {
+  history: {
+    push: PropTypes.func,
+  },
+};
+
 Footer.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+    push: PropTypes.func,
+  }),
 };
 
 export default Footer;

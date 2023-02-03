@@ -155,7 +155,7 @@ describe('26 - Implemente as recomendações. Para receitas de comida, a recomen
   });
 });
 
-describe('27 - Implemente os 6 cards de recomendação, mostrando apenas 2. O scroll é horizontal, similar a um `carousel`', () => {
+describe.only('27 - Implemente os 6 cards de recomendação, mostrando apenas 2. O scroll é horizontal, similar a um `carousel`', () => {
   it('Verifica se existem todas as recomendações na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/meals/52771', {
       onBeforeLoad(win) {

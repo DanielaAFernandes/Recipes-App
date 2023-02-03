@@ -4,7 +4,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FavoriteButton(props) {
-  const { recipeObject, type } = props;
+  const { recipeObject, type, dataTestId, isFavoritePages } = props;
   const [isFavorite, setIsFavorite] = useState();
   const LOCAL_STORAGE_FAVORITE_RECIPES = 'favoriteRecipes';
 
@@ -28,10 +28,14 @@ function FavoriteButton(props) {
 
   const checkIfIsFavorite = () => {
     const currentFavoriteRecipes = getLocalStorage();
-
     const checkIfFavorite = currentFavoriteRecipes
-      .some((localStorageRecipe) => localStorageRecipe.id
-          === recipeObject[`id${variableName}`]);
+      .some((localStorageRecipe) => {
+        const idToCheck = isFavoritePages
+          ? recipeObject.id
+          : recipeObject[`id${variableName}`];
+
+        return localStorageRecipe.id === idToCheck;
+      });
 
     setIsFavorite(checkIfFavorite);
   };
@@ -39,6 +43,10 @@ function FavoriteButton(props) {
   useEffect(() => {
     checkIfIsFavorite();
   }, [recipeObject]);
+
+  useEffect(() => {
+    checkIfIsFavorite();
+  }, []);
 
   const extractInfoFromRecipeObject = () => {
     const nationality = type !== 'drink' ? recipeObject.strArea : '';
@@ -77,17 +85,23 @@ function FavoriteButton(props) {
 
     setLocalStorage(newFavoriteRecipes);
     setIsFavorite(true);
+    window.dispatchEvent(new Event('storage'));
   };
 
   const removeFromFavorite = () => {
     const currentFavoriteRecipes = getLocalStorage();
 
     const filteredFavoriteRecipes = currentFavoriteRecipes
-      .filter((localStorageRecipe) => localStorageRecipe.id
-      !== recipeObject[`id${variableName}`]);
+      .filter((localStorageRecipe) => {
+        const idToCheck = isFavoritePages
+          ? recipeObject.id
+          : recipeObject[`id${variableName}`];
+        return localStorageRecipe.id !== idToCheck;
+      });
 
     setLocalStorage(filteredFavoriteRecipes);
     setIsFavorite(false);
+    window.dispatchEvent(new Event('storage'));
   };
 
   const handleFavorite = () => {
@@ -101,7 +115,7 @@ function FavoriteButton(props) {
   return (
     <button
       type="button"
-      data-testid="favorite-btn"
+      data-testid={ dataTestId || 'favorite-btn' }
       onClick={ handleFavorite }
       className={ isFavorite ? 'desfavoritar' : 'favoritar' }
       src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -118,6 +132,7 @@ function FavoriteButton(props) {
 FavoriteButton.defaultProps = {
   type: '',
   recipeObject: PropTypes.shape({
+    id: '' || null,
     idDrink: '',
     type: '',
     strArea: '',
@@ -126,6 +141,8 @@ FavoriteButton.defaultProps = {
     strDrink: '',
     strDrinkThumb: '',
   }),
+  dataTestId: '' || null,
+  isFavoritePages: false,
 };
 FavoriteButton.propTypes = {
   type: PropTypes.string,
@@ -137,6 +154,9 @@ FavoriteButton.propTypes = {
     strAlcoholic: PropTypes.string,
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
+    id: PropTypes.string,
   }),
+  dataTestId: PropTypes.string,
+  isFavoritePages: PropTypes.bool,
 };
 export default FavoriteButton;

@@ -21,28 +21,20 @@ footer {
 }
 
 .container {
-   position: relative;
-   padding: 0px;
-   margin-bottom: 10px;
-   max-width: 70vw; 
-
-
+  border: solid black 3px;
 }
   .container .gallery {
-    display: flex;
-   scroll-behavior: smooth;
+  display: flex;
    overflow-x: auto;
-   max-width: 160px;
+   max-width: 150px;
 
 
-  }
-  .container .gallery .gallery-wraper {
-    
   }
 
 .imageRec {
-   max-width: 80px; 
-  max-height: 80px;
+  width: 80px;
+   /* max-width: 80px; */
+  max-height: 80px; 
   
 }
 

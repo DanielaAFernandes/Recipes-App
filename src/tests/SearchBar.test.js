@@ -142,4 +142,26 @@ describe('Tests for Searchbar.js', () => {
 
     expect(alertMock).toHaveBeenCalled();
   });
+  test('Se é possível clickar em cada categoria', async () => {
+    const categoriesHolderDiv = screen.getByTestId('categories-holder');
+    const categoriesButtons = categoriesHolderDiv.children;
+
+    // Categories always have 6 buttons
+    const buttonAll = categoriesButtons[0];
+    const category1 = categoriesButtons[1];
+    const category2 = categoriesButtons[2];
+    const category3 = categoriesButtons[3];
+    const category4 = categoriesButtons[4];
+    const category5 = categoriesButtons[5];
+
+    await act(() => userEvent.click(buttonAll));
+    await act(() => userEvent.click(category1));
+    await act(() => userEvent.click(category2));
+    await act(() => userEvent.click(category3));
+    await act(() => userEvent.click(category4));
+    await act(() => userEvent.click(category5));
+
+    // Test if toogling works
+    await act(() => userEvent.click(category5));
+  });
 });
