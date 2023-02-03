@@ -150,7 +150,11 @@ export default function RecipeDetails(props) {
           </p>
           <div><Recommendations id={ id } /></div>
           {ingredients.map((filter, index) => (
-            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+            <p
+              className="ingredients"
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
               {filter}
             </p>
           ))}
@@ -162,6 +166,7 @@ export default function RecipeDetails(props) {
             {instructions}
           </p>
           <iframe
+            className="video"
             data-testid="video"
             src={ youtube }
             frameBorder="0"

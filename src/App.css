@@ -203,10 +203,73 @@
     height: 50px;
     width: 50px;
   }
+  .recipe-title {
+    font-size: 25px;
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    font-family: Montserrat , sans-serif;
+  }
+
+  .body-container {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .recipe-image {
+    width: 250px;
+    height: 250px;
+    margin-top: 10px;
+    justify-content: center;
+    border: black 3px solid;
+  }
+
+  .recommend {
+    margin-left: 45px;
+    margin-right: 50px;
+    color: black;
+    font-family: Montserrat , sans-serif;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .imageRec {
+    width: 50px;
+  }
+
+  .ingredients {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 5px;
+    color: black;
+    font-family: Montserrat , sans-serif;
+  }
 
   .recipes-link {
     height: 200px;
     margin-left: 10px;
+  }
+
+  .instructions-text {
+    color: black;
+    font-family: Montserrat , sans-serif;
+    font-size: 17px;
+    text-align: justify;
+    width: 250px;
+  }
+
+  .video {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
   }
 
   .risked {
@@ -216,6 +279,7 @@
   .rotas {
     display: flex;
     flex-direction: column;
+    background-color: rgb(202, 195, 195);
   }
 
   .title-login {

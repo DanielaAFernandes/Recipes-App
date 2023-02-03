@@ -51,7 +51,7 @@ function Recommendations(props) {
 
   return (
     <div>
-      <span className="recommend">Recomendações</span>
+      <p className="recommend">Recomendações</p>
 
       <div className="container">
         <div
