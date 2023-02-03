@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import './DoneRecipes.style.css';
 import ButtonShare from '../components/ButtonShare';
 
 function DoneRecipes() {

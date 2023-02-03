@@ -9,28 +9,41 @@ export default function Header({ title, showIcon }) {
   const { setIsSearchBarToogle, isSearchBarToogled } = useContext(LinkContext);
   return (
     <header>
-      <Link to="/profile">
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="profileIcon"
-        />
-      </Link>
-      {
-        showIcon && (
+      <h3 data-testid="page-title">{ title }</h3>
+      <div
+        className="icons-holder"
+      >
+
+        <Link to="/profile">
           <button
-            type="button"
-            onClick={ () => setIsSearchBarToogle(!isSearchBarToogled) }
+            className="button"
           >
             <img
-              src={ searchIcon }
-              data-testid="search-top-btn"
-              alt="searchIcon"
+              className="icon-images"
+              src={ profileIcon }
+              data-testid="profile-top-btn"
+              alt="profileIcon"
             />
+
           </button>
-        )
-      }
-      <h3 data-testid="page-title">{ title }</h3>
+        </Link>
+        {
+          showIcon && (
+            <button
+              className="search button"
+              type="button"
+              onClick={ () => setIsSearchBarToogle(!isSearchBarToogled) }
+            >
+              <img
+                className="icon-images"
+                src={ searchIcon }
+                data-testid="search-top-btn"
+                alt="searchIcon"
+              />
+            </button>
+          )
+        }
+      </div>
     </header>
   );
 }

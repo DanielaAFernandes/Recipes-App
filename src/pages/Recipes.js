@@ -63,7 +63,6 @@ function Recipes(props) {
       { isSearchBarToogled && <SearchBar { ...props } />}
       <CategoriesHolder { ...props } />
       <div className="links">
-        <p>Links</p>
         { whatArrayLinkToRender.slice(0, TWELVE_FIRST_LINKS).map((link, index) => {
           const { thumb, name, id } = decideVariables(link);
           return (

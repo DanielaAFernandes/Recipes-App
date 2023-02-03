@@ -10,8 +10,9 @@ function Footer(props) {
   };
 
   return (
-    <footer className="footer" data-testid="footer">
+    <footer className="recipes-buttons" data-testid="footer">
       <button
+        className="button"
         type="button"
         onClick={ () => clickHandle('/drinks') }
       >
@@ -23,6 +24,7 @@ function Footer(props) {
         />
       </button>
       <button
+        className="button"
         type="button"
         onClick={ () => clickHandle('/meals') }
       >

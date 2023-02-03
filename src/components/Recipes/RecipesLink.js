@@ -6,9 +6,9 @@ function RecipesLink(props) {
   const { thumb, index, name, path, id } = props;
   return (
     <Link to={ `${path}/${id}` }>
-      <div id="card" data-testid={ `${index}-recipe-card` }>
+      <div className="link-wrapper" id="card" data-testid={ `${index}-recipe-card` }>
         <img
-          className="image-meals"
+          className="image-meals-recipe-links"
           src={ `${thumb}/preview` }
           data-testid={ `${index}-card-img` }
           alt="recipe thumbnail"

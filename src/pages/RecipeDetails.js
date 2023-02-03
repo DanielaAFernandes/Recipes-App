@@ -5,7 +5,6 @@ import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import Recommendations from '../components/Recipes/Recomendations';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
-import './RecipeDetails.style.css';
 
 export default function RecipeDetails(props) {
   const { fetchData, isLoading } = useFetch();

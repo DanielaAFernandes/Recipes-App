@@ -5,6 +5,7 @@ function Category(props) {
   const { getLinksFromCategory, name } = props;
   return (
     <button
+      className="button smaller-button"
       data-testid={ `${name}-category-filter` }
       type="button"
       onClick={ () => getLinksFromCategory(name) }

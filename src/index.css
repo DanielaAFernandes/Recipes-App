@@ -12,29 +12,5 @@ code {
     monospace;
 }
 
-footer {
-  background-color: lightblue;
-  height: 40px;
-  top: 600px;
-  position: fixed;
-  width: 100%;
-}
 
-.container {
-  border: solid black 3px;
-}
-  .container .gallery {
-  display: flex;
-   overflow-x: auto;
-   max-width: 150px;
-
-
-  }
-
-.imageRec {
-  width: 80px;
-   /* max-width: 80px; */
-  max-height: 80px; 
-  
-}
 

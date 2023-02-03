@@ -42,8 +42,12 @@ function CategoriesHolder(props) {
 
   const SHOW_FIVE_CATEGORIES = 5;
   return (
-    <div data-testid="categories-holder">
+    <div
+      className="categories-holder"
+      data-testid="categories-holder"
+    >
       <button
+        className="button smaller-button"
         data-testid="All-category-filter"
         type="button"
         onClick={ () => setHasStartedSearchingOrFiltering(false) }

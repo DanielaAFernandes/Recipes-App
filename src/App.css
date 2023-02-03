@@ -54,74 +54,24 @@
 
 @media screen and ( max-width : 640px ) {
 
-  body {
-    background-color: #0fa36b;
-  }
-
-  .body-app {
-    background-color: white;
-    height: 150px;
-    margin-left: 9px;
-  }
-
-  .footer {
-    background-color: #464646;
-    border-top: 3px solid rgb(38, 38, 38);
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
-    justify-content: center;
-    left: 0;
-    padding-left: 25px;
-    padding-right: 25px;
-    position: fixed;
-    right: 0;
-  }
-
-  .footer button {
-    height: 20px;
-    width: 20px;
-  }
-
-  .footer img {
-    height: 20px;
-    width: 20px;
-  }
-
-  .image-inprogress {
-    height: 50px;
-    width: 30px;
-  }
-
-  .image-meals {
-    height: 150px;
-    width: 150px;
-  }
-
-  .inprogress {
-    height: 150px;
-    margin-left: 10px;
-  }
-
   .input {
     border-radius: 7px;
     margin-top: 5px;
-    opacity: 100% !important;
-  }
-
-  .links {
-    height: 400px;
-    overflow-y: scroll;
+    opacity: 100% ! important;
   }
 
   .login-button {
-    background-color: rgba(225,82,61);
+    background-color: rgba(225, 82, 61, 255) !important;
     border-radius: 7px;
-    color: white;
+    color: white !important;
     margin-top: 5px;
     padding: 5px;
     width: 80px;
+  }
+
+  .all-wrapper {
+    border: solid black 5px;
+    height: 100%;
   }
 
   .login-container {
@@ -156,14 +106,97 @@
     font-weight: 900;
   }
 
-  .meals-page {
-    height: 150px;
+  /* Header */
+  header {
+    display: flex;
+    height: 100px;
     margin-left: 10px;
+    text-align: center;
+  }
+
+  header h3 {
+    font-size: 25px;
+    width: fit-content;
+  }
+
+  .search {
+    background: white;
+  }
+
+  .icons-holder {
+    width: fit-content;
+  }
+
+  .icons-holder button {
+    height: 50px;
+    width: 50px;
+  }
+
+  /* Recipes Page */
+  .meals-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     margin-top: 10px;
   }
 
+  .categories-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .smaller-button {
+    background-color: rgba(225, 82, 61, 255) !important;
+    color: white  !important;
+    height: 30px;
+    opacity: 90%;
+    width: 80px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+    overflow-y: scroll;
+  }
+
+  .link-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .image-meals-recipe-links {
+    align-self: center;
+    display: flex;
+    margin-bottom: 10px;
+    width: 70%;
+  }
+
   .name-meals {
-    font-size: 17px;
+    color: black;
+    font-family: Montserrat , sans-serif;
+    font-size: 25px;
+  }
+
+  /* Footer */
+  .recipes-buttons {
+    background-color: white;
+    bottom: 50px;
+    height: 10px;
+    position: fixed;
+  }
+
+  .recipes-buttons button {
+    border: solid black 1px;
+    height: 60px;
+    width: 60px;
   }
 
   .recipe-image {
@@ -180,25 +213,16 @@
     text-decoration: line-through solid black;
   }
 
-  .rocksGlass {
-    animation: shake 1s infinite ease;
-    max-height: 7vh;
-  }
-
   .rotas {
     display: flex;
     flex-direction: column;
-    margin-top: 150px;
-    opacity: 100%;
   }
 
   .title-login {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat , sans-serif;
+    font-size: 30px;
     font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 4px 4px 4px gray;
   }
-}
-
-.favorite-btn-detail, .favorite-btn-prog {
-  background-color: transparent;
-  border: none;
 }

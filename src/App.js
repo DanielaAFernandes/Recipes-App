@@ -12,7 +12,7 @@ import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
-    <div className="meals">
+    <div className="all-wrapper">
       <div id="rotas" className="rotas">
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
