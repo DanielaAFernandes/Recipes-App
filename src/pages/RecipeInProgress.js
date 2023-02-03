@@ -199,14 +199,17 @@ function RecipeInProgress(props) {
             </label>
           ))}
           ;
-          <FavoriteButton
-            recipeObject={ recipe }
-            type={ mealsOrDrink }
-          />
-          <ShareButton
-            whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
-          />
+          <div className="favorite-button">
+            <FavoriteButton
+              recipeObject={ recipe }
+              type={ mealsOrDrink }
+            />
+            <ShareButton
+              whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
+            />
+          </div>
           <button
+            className="finish-button"
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ finishRecipe }
