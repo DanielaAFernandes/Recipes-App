@@ -2,23 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonShare from '../components/ButtonShare';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import FavoriteButton from '../components/Favoritar/FavoriteButton';
 
 function FavoritesRecipes() {
   const history = useHistory();
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState(['meal', 'drink']);
-  const isRecipeFavorite = true;
+
+  const getLocalStorage = () => {
+    const currentFavoriteRecipes = localStorage
+      .getItem('favoriteRecipes');
+    const parsedFavoriteRecipes = currentFavoriteRecipes
+      ? JSON.parse(currentFavoriteRecipes)
+      : [];
+
+    return parsedFavoriteRecipes;
+  };
 
   useEffect(() => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setRecipes(!favoriteRecipes ? [] : favoriteRecipes);
+    setRecipes(getLocalStorage());
+
+    window.addEventListener('storage', () => {
+      setRecipes(getLocalStorage());
+    });
   }, []);
-
-  const handleFavorite = () => {
-
-  };
 
   return (
     <div>
@@ -70,24 +77,12 @@ function FavoritesRecipes() {
                   {recipe.type === 'drink' ? recipe.alcoholicOrNot : topText}
                 </p>
                 <p data-testid={ `${i}-horizontal-done-date` }>{recipe.doneDate}</p>
-                <button
-                  type="button"
-                  className="favorite-btn-detail"
-                  onClick={ handleFavorite }
-                >
-                  {isRecipeFavorite ? (
-                    <img
-                      src={ blackHeartIcon }
-                      alt="blackHeart"
-                      data-testid={ `${i}-horizontal-favorite-btn` }
-                    />)
-                    : (
-                      <img
-                        src={ whiteHeartIcon }
-                        alt="blackHeart"
-                        data-testid={ `${i}-horizontal-favorite-btn` }
-                      />)}
-                </button>
+                <FavoriteButton
+                  recipeObject={ recipe }
+                  type={ recipe.type }
+                  dataTestId={ `${i}-horizontal-favorite-btn` }
+                  isFavoritePages
+                />
                 <ButtonShare pathname={ path } testid={ `${i}-horizontal-share-btn` } />
               </div>
             </div>

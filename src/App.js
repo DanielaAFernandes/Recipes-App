@@ -22,7 +22,7 @@ function App() {
       >
         Glass
       </object>
-      <div id="rotas">
+      <div id="rotas" className="rotas">
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route
           path="/drinks/:id"

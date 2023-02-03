@@ -63,9 +63,6 @@ function RecipeInProgress(props) {
     const currentLocalStorage = getLocalStorage();
     const key = mealsOrDrink === 'drink' ? 'drinks' : 'meals';
     const ingredientsArray = currentLocalStorage[key][id] || [];
-    console.log(ingredientsArray);
-    console.log(ingredient);
-
     return ingredientsArray.some((ingredi) => ingredi === ingredient);
   };
 
@@ -105,6 +102,7 @@ function RecipeInProgress(props) {
   const getDoneRecipesLocalStorage = () => {
     const checkedStorage = localStorage.getItem('doneRecipes');
     const parsedCheckedStorage = checkedStorage ? JSON.parse(checkedStorage) : [];
+    console.log(parsedCheckedStorage);
     return parsedCheckedStorage;
   };
 

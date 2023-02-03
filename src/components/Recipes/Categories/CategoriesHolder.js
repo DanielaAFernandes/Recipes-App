@@ -42,7 +42,7 @@ function CategoriesHolder(props) {
 
   const SHOW_FIVE_CATEGORIES = 5;
   return (
-    <div>
+    <div data-testid="categories-holder">
       <button
         data-testid="All-category-filter"
         type="button"

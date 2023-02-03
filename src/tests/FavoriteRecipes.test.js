@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import AppProvider from '../context/linkContext/LinkProvider';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
+import renderWithRouterAndProvider from './render/renderWithRouter';
 
 const PAGE_TITLE = 'page-title';
 const PROFILE = 'profile-top-btn';
@@ -52,11 +53,12 @@ describe('Testes para a página de FavoritesRecipes', () => {
   afterEach(() => window.localStorage.clear());
 
   it('Verifica a rota da página e seus componentes fixos', () => {
-    renderWithRouter(
+    renderWithRouterAndProvider(
       <AppProvider>
         <FavoriteRecipes />
       </AppProvider>,
     );
+
     const pageTitle = screen.getByTestId(PAGE_TITLE);
     const profile = screen.getByTestId(PROFILE);
     const filterMeals = screen.getByTestId(FILTER_MEALS);
@@ -75,7 +77,7 @@ describe('Testes para a página de FavoritesRecipes', () => {
     userEvent.click(filterAll);
   });
   it('Verifica a função click do botão, que faz redirecionamento de página (history.push(path)).', async () => {
-    renderWithRouter(
+    renderWithRouterAndProvider(
       <AppProvider>
         <FavoriteRecipes />
       </AppProvider>,
@@ -85,7 +87,7 @@ describe('Testes para a página de FavoritesRecipes', () => {
     userEvent.click(screen.getByTestId('0-horizontal-image'));
   });
   it('Verifica o botão de desfavoritar', () => {
-    renderWithRouter(
+    renderWithRouterAndProvider(
       <AppProvider>
         <FavoriteRecipes />
       </AppProvider>,
@@ -93,5 +95,32 @@ describe('Testes para a página de FavoritesRecipes', () => {
 
     expect(screen.getByTestId('0-horizontal-favorite-btn')).toBeInTheDocument();
     userEvent.click(screen.getByTestId('0-horizontal-favorite-btn'));
+  });
+});
+
+describe('Testes para a página de FavoritesRecipes quando o localStorage está vazio', () => {
+  it('Verifica a rota da página e seus componentes fixos', () => {
+    renderWithRouterAndProvider(
+      <AppProvider>
+        <FavoriteRecipes />
+      </AppProvider>,
+    );
+
+    const pageTitle = screen.getByTestId(PAGE_TITLE);
+    const profile = screen.getByTestId(PROFILE);
+    const filterMeals = screen.getByTestId(FILTER_MEALS);
+    const filterDrinks = screen.getByTestId(FILTER_DRINKS);
+    const filterAll = screen.getByTestId(FILTER_ALL);
+
+    expect(pageTitle).toBeInTheDocument();
+    expect(profile).toBeInTheDocument();
+    expect(filterMeals).toBeInTheDocument();
+    expect(filterDrinks).toBeInTheDocument();
+    expect(filterAll).toBeInTheDocument();
+
+    userEvent.click(profile);
+    userEvent.click(filterMeals);
+    userEvent.click(filterDrinks);
+    userEvent.click(filterAll);
   });
 });

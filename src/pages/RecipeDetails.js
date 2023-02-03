@@ -5,7 +5,7 @@ import FavoriteButton from '../components/Favoritar/FavoriteButton';
 import Recommendations from '../components/Recipes/Recomendations';
 import ShareButton from '../components/Share/ShareButton';
 import useFetch from '../hooks/useFetch';
-// import './RecipeDetails.style.css';
+import './RecipeDetails.style.css';
 
 export default function RecipeDetails(props) {
   const { fetchData, isLoading } = useFetch();
@@ -48,7 +48,7 @@ export default function RecipeDetails(props) {
 
     const isRecipeDone = currentDoneRecipesLocalStorage
       .find((recipe) => recipe.id === id);
-
+    console.log(isRecipeDone);
     const firstKey = type === 'drink' ? 'drinks' : 'meals';
     const objectWithIdKeys = currentInProgressRecipesLocalStorage[firstKey];
 
@@ -126,7 +126,7 @@ export default function RecipeDetails(props) {
   };
 
   return (
-    <div className="body-app">
+    <div className="body-container">
       { isLoading ? 'carregando' : (
         <div className="body-app">
           <h1
@@ -149,6 +149,7 @@ export default function RecipeDetails(props) {
 
             {isAlcoholic || ''}
           </p>
+          <div><Recommendations id={ id } /></div>
           {ingredients.map((filter, index) => (
             <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
               {filter}
@@ -171,7 +172,6 @@ export default function RecipeDetails(props) {
           />
         </div>
       )}
-      <div><Recommendations id={ id } /></div>
       <div>
         <button
           data-testid="start-recipe-btn"
