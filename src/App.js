@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
@@ -14,14 +13,6 @@ import RecipeInProgress from './pages/RecipeInProgress';
 function App() {
   return (
     <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
       <div id="rotas" className="rotas">
         <Route path="/" exact render={ (props) => <Login { ...props } /> } />
         <Route

@@ -34,9 +34,11 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
+      <h1 className="title-login">App de Receitas</h1>
       <label htmlFor="emailInput">
         <input
+          className="input"
           type="text"
           placeholder="email"
           data-testid="email-input"
@@ -47,6 +49,7 @@ function Login() {
       </label>
       <label htmlFor="passwordInput">
         <input
+          className="input"
           type="text"
           placeholder="password"
           data-testid="password-input"
@@ -56,6 +59,7 @@ function Login() {
         />
       </label>
       <button
+        className="login-button"
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabledButton }
