@@ -50,15 +50,16 @@ function SearchBar(props) {
 
   return (
     <div>
-      <label htmlFor="search-input">
-        Search
+      <label className="label-search" htmlFor="search-input">
+        Search:
         <input
+          className="input-search"
           type="text"
           data-testid="search-input"
           onChange={ (e) => setTextSearch(e.target.value) }
         />
       </label>
-      <label htmlFor="ingredient-search-radio">
+      <label className="name-search-radio" htmlFor="ingredient-search-radio">
         Ingredient
         <input
           type="radio"
@@ -69,7 +70,7 @@ function SearchBar(props) {
           onChange={ (e) => setCurrentlySelected(e.target.value) }
         />
       </label>
-      <label htmlFor="name-search-radio">
+      <label className="name-search-radio" htmlFor="name-search-radio">
         Name
         <input
           type="radio"
@@ -80,7 +81,7 @@ function SearchBar(props) {
           onChange={ (e) => setCurrentlySelected(e.target.value) }
         />
       </label>
-      <label htmlFor="first-letter-search-radio">
+      <label className="name-search-radio" htmlFor="first-letter-search-radio">
         First Letter
         <input
           type="radio"
@@ -92,6 +93,7 @@ function SearchBar(props) {
         />
       </label>
       <button
+        className="exec-search-btn"
         type="button"
         data-testid="exec-search-btn"
         onClick={ triggerSearch }

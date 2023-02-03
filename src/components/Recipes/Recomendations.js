@@ -50,7 +50,7 @@ function Recommendations(props) {
   const SIX_FIRST_LINKS = 6;
 
   return (
-    <div>
+    <div className="recommendations">
       <p className="recommend">Recomendações</p>
 
       <div className="container">
