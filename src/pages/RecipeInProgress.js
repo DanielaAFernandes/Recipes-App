@@ -162,16 +162,24 @@ function RecipeInProgress(props) {
             src={ recipe.strDrinkThumb || recipe.strMealThumb }
             alt="foto-receita"
           />
-          <h3 data-testid="recipe-title">{recipe.strDrink || recipe.strMeal}</h3>
-          <FavoriteButton
-            recipeObject={ recipe }
-            type={ mealsOrDrink }
-          />
-          <ShareButton
-            whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
-          />
-          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
-          <p data-testid="instructions">{recipe.strInstructions}</p>
+          <h3
+            className="title-continue"
+            data-testid="recipe-title"
+          >
+            {recipe.strDrink || recipe.strMeal}
+          </h3>
+          <h4
+            className="category-continue"
+            data-testid="recipe-category"
+          >
+            {recipe.strCategory}
+          </h4>
+          <p
+            className="instructions-continue"
+            data-testid="instructions"
+          >
+            {recipe.strInstructions}
+          </p>
           {ingredients.map((filter, index) => (
             <label
               className={ filter.checked ? 'risked' : '' }
@@ -181,6 +189,7 @@ function RecipeInProgress(props) {
             >
               {filter.ingredient}
               <input
+                className="ingredients-check"
                 type="checkbox"
                 value="step"
                 name="step"
@@ -190,6 +199,13 @@ function RecipeInProgress(props) {
             </label>
           ))}
           ;
+          <FavoriteButton
+            recipeObject={ recipe }
+            type={ mealsOrDrink }
+          />
+          <ShareButton
+            whatToCopy={ `http://localhost:3000${pathname.replace('/in-progress', '')}` }
+          />
           <button
             data-testid="finish-recipe-btn"
             type="button"
