@@ -201,11 +201,6 @@
     margin-bottom: 10px;
   }
   
-  /* .image-and-name {
-    border: 1px solid black;
-    border-radius: 7px;
-  } */
-
   .image-meals-recipe-links {
     align-self: center;
     display: flex;
@@ -238,42 +233,46 @@
     height: 50px;
     width: 50px;
   }
+
   .recipe-title {
-    font-size: 25px;
-    color: black;
+    background-color: rgb(255, 102, 0);
+    font-size: 30px;
+    color: white;
     text-align: center;
-    margin-top: 10px;
+    padding: 10px;
     font-family: Montserrat , sans-serif;
   }
 
   .body-container {
-    margin-left: 50px;
-    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
   }
 
   .recipe-image {
     width: 250px;
     height: 250px;
+    margin-left: 50px;
     margin-top: 10px;
-    justify-content: center;
-    border: black 3px solid;
+    align-content: center;
+  }
+
+  .recipe-text {
+    color: black;
+    text-align: center;
   }
 
   .recommend {
     color: black;
     font-family: Montserrat , sans-serif;
     font-size: 20px;
-    margin-left: 45px;
-    margin-right: 50px;
     margin-top: 15px;
     margin-bottom: 15px;
+    text-align: center;
   }
 
   .recommendations {
-    border: 3px solid orangered;
-    border-radius: 7px;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-top: 30px;
   }
 
   .gallery {
@@ -304,6 +303,8 @@
     color: black;
     font-family: Montserrat , sans-serif;
     font-size: 17px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: justify;
     width: 250px;
   }
