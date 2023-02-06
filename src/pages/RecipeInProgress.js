@@ -180,24 +180,26 @@ function RecipeInProgress(props) {
           >
             {recipe.strInstructions}
           </p>
-          {ingredients.map((filter, index) => (
-            <label
-              className={ filter.checked ? 'risked' : '' }
-              data-testid={ `${index}-ingredient-step` }
-              key={ index }
-              htmlFor="step"
-            >
-              {filter.ingredient}
-              <input
-                className="ingredients-check"
-                type="checkbox"
-                value="step"
-                name="step"
-                checked={ filter.checked }
-                onChange={ () => handleCheck(filter.ingredient, filter.checked) }
-              />
-            </label>
-          ))}
+          <div className="ingredients">
+            {ingredients.map((filter, index) => (
+              <label
+                className={ filter.checked ? 'risked' : '' }
+                data-testid={ `${index}-ingredient-step` }
+                key={ index }
+                htmlFor="step"
+              >
+                {filter.ingredient}
+                <input
+                  className="ingredients-check"
+                  type="checkbox"
+                  value="step"
+                  name="step"
+                  checked={ filter.checked }
+                  onChange={ () => handleCheck(filter.ingredient, filter.checked) }
+                />
+              </label>
+            ))}
+          </div>
           ;
           <div className="favorite-button">
             <FavoriteButton

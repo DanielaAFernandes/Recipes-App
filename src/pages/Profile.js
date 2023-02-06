@@ -25,17 +25,24 @@ function Profile() {
   }, []);
 
   return (
-    <div>
+    <div className="profile">
       <Header title="Profile" showSearch={ false } />
       <div>
         <h4 data-testid="profile-email">
           {email}
         </h4>
         <Link to="/done-recipes">
-          <button type="button" data-testid="profile-done-btn">Done Recipes</button>
+          <button
+            className="buttons-profile"
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Done Recipes
+          </button>
         </Link>
         <Link to="/favorite-recipes">
           <button
+            className="buttons-profile"
             type="button"
             data-testid="profile-favorite-btn"
           >
@@ -45,6 +52,7 @@ function Profile() {
         </Link>
         <button
           type="button"
+          className="buttons-profile"
           data-testid="profile-logout-btn"
           onClick={ handleLogout }
         >

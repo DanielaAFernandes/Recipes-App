@@ -38,8 +38,9 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" showSearchIcon={ false } />
-      <div>
+      <div className="buttons-done">
         <button
+          className="button-meals"
           data-testid="filter-by-meal-btn"
           type="button"
           onClick={ () => setFilter(['meal']) }
@@ -47,6 +48,7 @@ function DoneRecipes() {
           Meals
         </button>
         <button
+          className="button-meals"
           data-testid="filter-by-drink-btn"
           type="button"
           onClick={ () => setFilter(['drink']) }
@@ -54,6 +56,7 @@ function DoneRecipes() {
           Drinks
         </button>
         <button
+          className="button-meals"
           data-testid="filter-by-all-btn"
           type="button"
           onClick={ () => setFilter(['meal', 'drink']) }

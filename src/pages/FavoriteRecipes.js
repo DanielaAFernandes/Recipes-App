@@ -28,11 +28,12 @@ function FavoritesRecipes() {
   }, []);
 
   return (
-    <div>
+    <div className="favorite-page">
       <Header title="Favorite Recipes" showSearchIcon={ false } />
       <p>Favorite Recipes</p>
       <div>
         <button
+          className="favorite-buttons"
           data-testid="filter-by-meal-btn"
           type="button"
           onClick={ () => setFilter(['meal']) }
@@ -40,6 +41,7 @@ function FavoritesRecipes() {
           Meals
         </button>
         <button
+          className="favorite-buttons"
           data-testid="filter-by-drink-btn"
           type="button"
           onClick={ () => setFilter(['drink']) }
@@ -47,6 +49,7 @@ function FavoritesRecipes() {
           Drinks
         </button>
         <button
+          className="favorite-buttons"
           data-testid="filter-by-all-btn"
           type="button"
           onClick={ () => setFilter(['meal', 'drink']) }
