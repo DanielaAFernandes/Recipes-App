@@ -372,6 +372,7 @@
   .finish-button {
     background-color: rgb(255, 102, 0);
     color: white;
+    margin-bottom: 5px;
     margin-left: 135px;
   }
 
